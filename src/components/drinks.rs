@@ -32,18 +32,18 @@ fn handle_onclick(drink: &DrinkType) {
 #[component]
 pub fn DrinkTypes() -> Element {
     rsx! {
-        div { class: "grid grid-cols-3 sm:grid-cols-5 gap-2 px-4 my-8", 
-            {  
+        div { class: "",
+            {
                 DRINKS
                     .iter()
                     .map(|drink| {
                         rsx! {
                             button {
-                                class: "p-3 rounded-xl flex flex-col items-center gap-2 transition-all duration-200 ease-in-out bg-zinc-800 text-rose-100",
+                                class: "",
                                 key: "{drink.label}",
                                 onclick: move |_| handle_onclick(drink),
-                                div { class: "text-3xl transition-transform", "{drink.emoji}" }
-                                span { class: "text-xs sm:text-sm font-medium", "{drink.label}" }
+                                div { class: "", "{drink.emoji}" }
+                                span { class: "", "{drink.label}" }
                             }
                         }
                     })

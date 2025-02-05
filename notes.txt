@@ -1,0 +1,9 @@
+Ideas:
+- change color screen to get darker with each drink like the scheme for karate belts
+- having a slider to "call it a night" instead of a button
+    - or hold the button down for a few seconds
+- change BAC color 
+
+- Achievements:
+    - stack the achievements as they accumulate in the Tonight view
+    - in the Achievement view, keep track of what achievements have been made and how many times

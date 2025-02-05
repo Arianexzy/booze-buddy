@@ -3,3 +3,6 @@ pub use navbar::Navbar;
 
 mod drinks;
 pub use drinks::*;
+
+mod stats;
+pub use stats::*;

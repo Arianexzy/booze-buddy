@@ -15,11 +15,10 @@ fn main() {
 #[component]
 fn App() -> Element {
     rsx! {
-        document::Meta { 
+        document::Meta {
             name: "viewport",
             content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
         }
-        
         // Global app resources
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: MAIN_CSS }
