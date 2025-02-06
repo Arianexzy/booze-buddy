@@ -6,7 +6,7 @@ struct DrinkType {
     emoji: &'static str,
 }
 
-const DRINKS: [DrinkType; 4] = [
+const DRINK_TYPES: [DrinkType; 4] = [
     DrinkType {
         label: "Beer",
         emoji: "🍺",
@@ -30,11 +30,11 @@ fn handle_onclick(drink: &DrinkType) {
 }
 
 #[component]
-pub fn DrinkTypes() -> Element {
+pub fn Drinks() -> Element {
     rsx! {
         div { class: "",
             {
-                DRINKS
+                DRINK_TYPES
                     .iter()
                     .map(|drink| {
                         rsx! {

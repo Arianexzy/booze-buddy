@@ -4,13 +4,27 @@ use dioxus::prelude::*;
 pub fn Stats() -> Element {
     rsx! {
         div {
+            // Div for the Drink counts
             div {
-                span { "Total Drinks: " }
-                        // span { "{total_drinks}"}
+                // map out each drink for their own div
+                div {
+                    // div for each drink name
+                    div {
+                        span { "Drink name" }
+                    }
+                    span { "Drink Count" }
+                }
             }
+            // Div for the total count and BAC
             div {
-                span { "Estimated BAC: " }
-                span { " " }
+                div {
+                    span { "Total Drinks: " }
+                                // span { "{total_drinks}"}
+                }
+                div {
+                    span { "Estimated BAC: " }
+                                // span { "{bac}" }
+                }
             }
         }
     }

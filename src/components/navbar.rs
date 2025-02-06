@@ -1,5 +1,6 @@
 use crate::Route;
 use dioxus::prelude::*;
+use lucide_dioxus::{Beer, Calendar, Trophy};
 
 const NAVBAR_CSS: Asset = asset!("/assets/styling/navbar.css");
 
@@ -9,9 +10,21 @@ pub fn Navbar() -> Element {
         document::Link { rel: "stylesheet", href: NAVBAR_CSS }
 
         div { id: "navbar",
-            Link { to: Route::Tonight {}, "Tonight" }
-            Link { to: Route::History {}, "History" }
-            Link { to: Route::Achievements {}, "Achievements" }
+            Link { 
+                to: Route::Tonight {}, 
+                Beer {},
+                "Tonight",
+            },
+            Link { to: Route::History {}, 
+                Calendar {},
+                "History",
+                
+            },
+            Link { 
+                to: Route::Achievements {},
+                Trophy {},
+                "Achievements" 
+            },
         }
 
         Outlet::<Route> {}
