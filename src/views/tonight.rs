@@ -1,11 +1,19 @@
-use crate::components::{DrinkTypes, Stats};
+use crate::components::{
+    Drinks, DynamicBackground, SliderButton, Stats, TonightAchievements, WittyMessage,
+};
 use dioxus::prelude::*;
 
 #[component]
 pub fn Tonight() -> Element {
     rsx! {
-        h1 { class: "app-title", "Booze Buddy" }
-        DrinkTypes {}
-        Stats {}
+        div { class: "tonight-view-container",
+            DynamicBackground {}
+            h1 { class: "view-header", "Booze Buddy" }
+            WittyMessage {}
+            Drinks {}
+            Stats {}
+            TonightAchievements {}
+            SliderButton {}
+        }
     }
 }
