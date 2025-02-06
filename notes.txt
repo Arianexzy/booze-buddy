@@ -14,3 +14,6 @@ Ideas:
 - Achievements:
     - stack the achievements as they accumulate in the Tonight view
     - in the Achievement view, keep track of what achievements have been made and how many times
+
+- Tonight View:
+    - Add plus and minus buttons to the right of the four drink buttons. 

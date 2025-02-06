@@ -1,0 +1,99 @@
+.drinks-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    padding: 0 1rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.drink-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0.5rem;
+    grid-column: span 2;
+}
+
+.drink-button {
+    padding: 0.8rem;
+    border-radius: 0.75rem;
+    /* Semi-transparent white background with blur */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    /* Add a subtle border */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.drink-button.selected {
+    /* Bright cyan with transparency */
+    background: rgba(56, 239, 237, 0.4);
+    backdrop-filter: blur(12px);
+    /* Subtle glow effect */
+    box-shadow: 0 2px 8px rgba(56, 239, 237, 0.3);
+    border: 1px solid rgba(56, 239, 237, 0.5);
+}
+
+
+.drink-button-icon {
+    font-size: 24px;
+    line-height: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.drink-button-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 480px) {
+    .drink-button-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    
+    .drink-button-label {
+        font-size: 0.85rem;
+    }
+}
+
+.counter-buttons {
+    display: grid;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 100%;
+    grid-colum: 3;
+    grid-row: span 2;
+}
+
+.increment-button, .decrement-button {
+    flex: 1;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text);
+    transition: all 0.2s ease;
+    backdrop-filter: blur(8px);
+}
+
+.increment-button {
+    /* Semi-transparent green */
+    background: rgba(34, 197, 94, 0.4);
+    border: 1px solid rgba(34, 197, 94, 0.5);
+}
+
+.decrement-button {
+    /* Semi-transparent red */
+    background: rgba(239, 68, 68, 0.4);
+    border: 1px solid rgba(239, 68, 68, 0.5);
+}
