@@ -4,6 +4,13 @@ Ideas:
     - or hold the button down for a few seconds
 - change BAC color 
 
+- Dynamic background color will have like a gradient shade of the Rainbow spectrum
+    - Starting at Violet, there will be a gradient of Violet at the top and Indigo at the bottom
+    - On each drink, the background will change gradient color to the next Rainbow color like:
+        - V/V, I/v, B/i, G/b, Y/g, O/y, R/o, R/R   
+        - Lower case letter represents being the recessive color (just being the bottom gradient part)
+        - Last color will be pure red
+
 - Achievements:
     - stack the achievements as they accumulate in the Tonight view
     - in the Achievement view, keep track of what achievements have been made and how many times
