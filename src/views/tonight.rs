@@ -1,5 +1,5 @@
 use crate::components::{
-    Drinks, DynamicBackground, SliderButton, Stats, TonightAchievements, WittyMessage,
+    Drinks, DynamicBackground, EndNightButton, Stats, TonightAchievements, WittyMessage,
 };
 use dioxus::prelude::*;
 
@@ -14,7 +14,7 @@ pub fn Tonight() -> Element {
             Drinks {},
             Stats {},
             TonightAchievements {},
-            SliderButton {},
+            EndNightButton {},
         }
     }
 }

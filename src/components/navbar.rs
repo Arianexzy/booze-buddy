@@ -10,20 +10,20 @@ pub fn Navbar() -> Element {
         document::Link { rel: "stylesheet", href: NAVBAR_CSS }
 
         div { id: "navbar",
-            Link { 
-                to: Route::Tonight {}, 
+            Link {
+                to: Route::Tonight {},
                 Beer {},
                 "Tonight",
             },
-            Link { to: Route::History {}, 
+            Link { to: Route::History {},
                 Calendar {},
                 "History",
-                
+
             },
-            Link { 
+            Link {
                 to: Route::Achievements {},
                 Trophy {},
-                "Achievements" 
+                "Achievements"
             },
         }
 

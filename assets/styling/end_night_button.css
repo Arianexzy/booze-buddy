@@ -1,0 +1,59 @@
+/* Container Styles */
+.end-night-container {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Card Styles */
+.end-night-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background-image: linear-gradient(to bottom right, #3b82f6, #9333ea);
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Counter Text */
+.counter-text {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.75rem;
+}
+
+/* Progress Circle Button */
+.progress-circle-button {
+    position: relative;
+    width: 6rem;
+    height: 6rem;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.progress-circle-button:active .progress-circle-inner,
+.progress-circle-button:focus .progress-circle-inner {
+    background-color: #1d4ed8;
+}
+
+.progress-circle-inner {
+    position: absolute;
+    inset: 0.5rem;
+    background-color: #2563eb;
+    border-radius: 9999px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.875rem;
+}

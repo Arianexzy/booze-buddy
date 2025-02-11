@@ -16,5 +16,5 @@ pub use witty_message::*;
 mod tonight_achievements;
 pub use tonight_achievements::*;
 
-mod slider_button;
-pub use slider_button::*;
+mod end_night_button;
+pub use end_night_button::*;

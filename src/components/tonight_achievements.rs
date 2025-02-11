@@ -4,7 +4,7 @@ use dioxus::prelude::*;
 pub fn TonightAchievements() -> Element {
     rsx! {
         div {
-            
+
         },
     }
 }

@@ -18,7 +18,7 @@ const DRINK_TYPES: [DrinkType; 4] = [
         emoji: "🍷",
     },
     DrinkType {
-        label: "Cocktail",
+        label: "Mixed Drink",
         emoji: "🍸",
     },
     DrinkType {
@@ -28,16 +28,16 @@ const DRINK_TYPES: [DrinkType; 4] = [
 ];
 
 fn handle_onclick(drink: &DrinkType) {
-    println!("Clicked: {:?}", "Beer");
+    println!("Clicked: {:?}", drink.label);
 }
 
 #[component]
 pub fn Drinks() -> Element {
     let mut drink_selected = use_signal(|| "Beer");
-    
+
     rsx! {
         document::Link { rel: "stylesheet", href: DRINKS_CSS }
-        
+
         div { class: "drinks-container",
             div { class: "drink-buttons",
             {
