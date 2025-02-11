@@ -10,6 +10,8 @@ Ideas:
         - V/V, I/v, B/i, G/b, Y/g, O/y, R/o, R/R   
         - Lower case letter represents being the recessive color (just being the bottom gradient part)
         - Last color will be pure red
+        - ** Use the colors from the System Monitor tool that are used for the CPU's
+            - Click on a CPU color, then right-click on the checked color and click "Customize"
 
 - Achievements:
     - stack the achievements as they accumulate in the Tonight view
