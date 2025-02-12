@@ -3,12 +3,12 @@ use dioxus::prelude::*;
 const DRINKS_CSS: Asset = asset!("/assets/styling/drinks.css");
 
 #[derive(Debug)]
-struct DrinkType {
-    label: &'static str,
-    emoji: &'static str,
+pub struct DrinkType {
+    pub label: &'static str,
+    pub emoji: &'static str,
 }
 
-const DRINK_TYPES: [DrinkType; 4] = [
+pub const DRINK_TYPES: [DrinkType; 4] = [
     DrinkType {
         label: "Beer",
         emoji: "🍺",
