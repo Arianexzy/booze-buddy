@@ -1,0 +1,59 @@
+.stats-container {
+  background-color: rgba(255, 255, 255, 0.2); /* bg-white bg-opacity-20 */
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1rem; /* p-4 */
+}
+
+.drink-counts-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* grid-cols-2 */
+  gap: 1rem; /* gap-4 */
+  margin-bottom: 1rem; /* space-y-4 */
+}
+
+.drink-count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drink-type {
+  display: flex;
+  align-items: center;
+}
+
+.drink-count-icon {
+  font-size: 1rem; /* approximately 16px */
+}
+
+.drink-count-label {
+  margin-left: 0.5rem; /* ml-2 */
+  text-transform: capitalize;
+}
+
+.drink-count-value {
+  font-weight: 700; /* font-bold */
+}
+
+.drink-stats {
+  border-top: 1px solid rgba(255, 255, 255, 0.2); /* border-t border-white border-opacity-20 */
+  padding-top: 1rem; /* pt-4 */
+}
+
+.total-drinks, .bac {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.total-drinks span:first-child,
+.bac span:first-child {
+  font-size: 1.125rem; /* text-lg */
+}
+
+.total-drinks span:last-child,
+.bac span:last-child {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 700; /* font-bold */
+}
