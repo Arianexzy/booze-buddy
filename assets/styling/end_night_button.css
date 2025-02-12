@@ -1,59 +1,45 @@
-/* Container Styles */
+/* Container for centering */
 .end-night-container {
-    height: 400px;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Card Styles */
-.end-night-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    background-image: linear-gradient(to bottom right, #3b82f6, #9333ea);
-    border-radius: 0.75rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-/* Counter Text */
-.counter-text {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 0.75rem;
-}
-
-/* Progress Circle Button */
-.progress-circle-button {
+/* Circular Button Styles */
+.end-night-button {
     position: relative;
-    width: 6rem;
-    height: 6rem;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
     border: none;
-    background: none;
-    padding: 0;
+    background: #2563eb;
     cursor: pointer;
     touch-action: manipulation;
-}
-
-.progress-circle-button:active .progress-circle-inner,
-.progress-circle-button:focus .progress-circle-inner {
-    background-color: #1d4ed8;
-}
-
-.progress-circle-inner {
-    position: absolute;
-    inset: 0.5rem;
-    background-color: #2563eb;
-    border-radius: 9999px;
+    padding: 0;
     transition: background-color 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: white;
     font-weight: 600;
-    font-size: 0.875rem;
+}
+
+.end-night-button::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50%;
+    background: 
+        conic-gradient(
+            from 0deg,
+            white 0 calc(var(--progress, 0) * 1%),
+            transparent calc(var(--progress, 0) * 1%) 100%
+        );
+    mask: radial-gradient(transparent 62%, white 63% 68%, transparent 69%);
+    -webkit-mask: radial-gradient(transparent 62%, white 63% 68%, transparent 69%);
+}
+
+.end-night-button:active {
+    background-color: #1d4ed8;
 }
