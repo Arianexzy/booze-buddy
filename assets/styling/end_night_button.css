@@ -1,25 +1,21 @@
-/* Container for centering */
-.end-night-container {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Circular Button Styles */
 .end-night-button {
     position: relative;
     width: 120px;
     height: 120px;
     border-radius: 50%;
     border: none;
-    background: #2563eb;
+    background: linear-gradient(145deg, #2d6efd, #1e4abf);
     cursor: pointer;
     touch-action: manipulation;
     padding: 0;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
     color: white;
     font-weight: 600;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1),
+        0 4px 20px rgba(37, 99, 235, 0.2),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.2),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .end-night-button::before {
@@ -33,13 +29,40 @@
     background: 
         conic-gradient(
             from 0deg,
-            white 0 calc(var(--progress, 0) * 1%),
+            rgba(255, 255, 255, 0.8) 0 calc(var(--progress, 0) * 1%),
             transparent calc(var(--progress, 0) * 1%) 100%
         );
     mask: radial-gradient(transparent 62%, white 63% 68%, transparent 69%);
     -webkit-mask: radial-gradient(transparent 62%, white 63% 68%, transparent 69%);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.end-night-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.3), transparent 60%);
 }
 
 .end-night-button:active {
-    background-color: #1d4ed8;
+    background: linear-gradient(145deg, #1e4abf, #2d6efd);
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        inset 2px 2px 4px rgba(0, 0, 0, 0.1),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.1);
+    transform: translateY(2px);
+}
+
+/* Optional: Add hover effect */
+.end-night-button:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 6px 8px rgba(0, 0, 0, 0.15),
+        0 6px 25px rgba(37, 99, 235, 0.3),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.25),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.25);
 }
