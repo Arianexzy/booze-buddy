@@ -6,38 +6,35 @@ const NAVBAR_CSS: Asset = asset!("/assets/styling/navbar.css");
 
 #[component]
 pub fn Navbar() -> Element {
-    rsx! {  
+    rsx! {
         document::Link { rel: "stylesheet", href: NAVBAR_CSS }
 
         nav { class: "navbar",
             ul { class: "navbar-list",
-                li { 
-                    key: "tonight",
+                li { key: "tonight",
                     Link {
                         class: "navbar-link",
                         active_class: "active",
                         to: Route::Tonight {},
-                        Beer {},
+                        Beer {}
                         span { class: "navbar-label", "Tonight" }
                     }
-                },
-                li { 
-                    key: "history",
+                }
+                li { key: "history",
                     Link {
                         class: "navbar-link",
                         active_class: "active",
                         to: Route::History {},
-                        Calendar {},
+                        Calendar {}
                         span { class: "navbar-label", "History" }
                     }
-                },
-                li { 
-                    key: "achievements",
+                }
+                li { key: "achievements",
                     Link {
                         class: "navbar-link",
                         active_class: "active",
                         to: Route::Achievements {},
-                        Trophy {},
+                        Trophy {}
                         span { class: "navbar-label", "Achievements" }
                     }
                 }
