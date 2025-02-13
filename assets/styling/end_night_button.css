@@ -1,11 +1,10 @@
 .end-night-button {
     position: relative;
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     border: none;
     background: linear-gradient(145deg, #2d6efd, #1e4abf);
-    cursor: pointer;
     touch-action: manipulation;
     padding: 0;
     transition: all 0.2s ease;
@@ -17,10 +16,12 @@
         inset 2px 2px 4px rgba(255, 255, 255, 0.2),
         inset -2px -2px 4px rgba(0, 0, 0, 0.2);
         
-    display: block; /* Makes the button respect margin: auto */
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 2rem; /* Adds some space from the top, adjust as needed */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem; 
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
 }
 
 .end-night-button::before {
