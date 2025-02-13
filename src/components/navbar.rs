@@ -6,27 +6,43 @@ const NAVBAR_CSS: Asset = asset!("/assets/styling/navbar.css");
 
 #[component]
 pub fn Navbar() -> Element {
-    rsx! {
+    rsx! {  
         document::Link { rel: "stylesheet", href: NAVBAR_CSS }
 
-        div { id: "navbar",
-            Link {
-                to: Route::Tonight {},
-                Beer {},
-                "Tonight",
-            },
-            Link { to: Route::History {},
-                Calendar {},
-                "History",
-
-            },
-            Link {
-                to: Route::Achievements {},
-                Trophy {},
-                "Achievements"
-            },
+        nav { class: "navbar",
+            ul { class: "navbar-list",
+                li { 
+                    key: "tonight",
+                    Link {
+                        class: "navbar-link",
+                        active_class: "active",
+                        to: Route::Tonight {},
+                        Beer {},
+                        span { class: "navbar-label", "Tonight" }
+                    }
+                },
+                li { 
+                    key: "history",
+                    Link {
+                        class: "navbar-link",
+                        active_class: "active",
+                        to: Route::History {},
+                        Calendar {},
+                        span { class: "navbar-label", "History" }
+                    }
+                },
+                li { 
+                    key: "achievements",
+                    Link {
+                        class: "navbar-link",
+                        active_class: "active",
+                        to: Route::Achievements {},
+                        Trophy {},
+                        span { class: "navbar-label", "Achievements" }
+                    }
+                }
+            }
         }
-
         Outlet::<Route> {}
     }
 }
