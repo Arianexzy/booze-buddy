@@ -1,0 +1,33 @@
+.witty-message-container {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    color: white;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.witty-message {
+    font-size: 1.25rem;
+    font-weight: 500;
+    font-style: italic;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.witty-message-container {
+    animation: slideIn 0.5s ease-out forwards;
+}

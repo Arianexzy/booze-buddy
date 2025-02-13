@@ -10,7 +10,7 @@ pub fn Tonight() -> Element {
             DynamicBackground {}
             h1 { class: "view-header", "Booze Buddy" }
             // h2 { class: "app-subtitle" },
-            WittyMessage {}
+            WittyMessage { message: "Ready for poor decisions?" }
             Drinks {}
             Stats {}
             TonightAchievements {}
