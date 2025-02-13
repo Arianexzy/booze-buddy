@@ -16,6 +16,11 @@
         0 4px 20px rgba(37, 99, 235, 0.2),
         inset 2px 2px 4px rgba(255, 255, 255, 0.2),
         inset -2px -2px 4px rgba(0, 0, 0, 0.2);
+        
+    display: block; /* Makes the button respect margin: auto */
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2rem; /* Adds some space from the top, adjust as needed */
 }
 
 .end-night-button::before {
