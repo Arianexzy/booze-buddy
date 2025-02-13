@@ -1,0 +1,71 @@
+.tonight-achievements-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.tonight-achievements-header {
+    margin-bottom: 1rem;
+}
+
+.tonight-achievements-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.tonight-achievements-title svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.5rem;
+}
+
+.tonight-achievements-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+/* Individual achievement styles */
+.achievement-item {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    /* Animation for new achievements */
+    animation: achievementPopIn 0.3s ease-out forwards;
+}
+
+/* Achievement color variants */
+.achievement-bronze {
+    background-color: #CD7F32;
+}
+
+.achievement-silver {
+    background-color: #C0C0C0;
+}
+
+.achievement-gold {
+    background-color: #FFD700;
+}
+
+.achievement-platinum {
+    background-color: #E5E4E2;
+}
+
+@keyframes achievementPopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
