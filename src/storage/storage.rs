@@ -19,6 +19,10 @@ pub fn end_current_session() {
     });
 }
 
+pub fn has_active_session() -> bool {
+    with_storage(|history| history.current_session().is_some())
+}
+
 pub fn add_drink_by(drink_type: DrinkType) {
     with_storage(|history| {
         if let Some(session) = history.current_session() {
