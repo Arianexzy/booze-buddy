@@ -19,3 +19,5 @@ Ideas:
 
 - Tonight View:
     - Add plus and minus buttons to the right of the four drink buttons. 
+    
+- Consider using the Ciggy Buddy button instead.
