@@ -1,5 +1,5 @@
+use crate::storage::{models::DrinkType, storage};
 use dioxus::prelude::*;
-use crate::storage::{storage, models::DrinkType};
 
 const DRINKS_CSS: Asset = asset!("/assets/styling/drinks.css");
 
@@ -35,7 +35,7 @@ pub const DRINK_TYPES: [DrinkDisplay; 4] = [
 
 #[component]
 pub fn Drinks() -> Element {
-    let mut drink_selected = use_signal(|| DrinkType::Beer);
+    let mut drink_selected = use_signal(|| DrinkType::None);
     let mut drink_count = use_signal(|| storage::get_count_by(drink_selected()));
 
     rsx! {
@@ -63,8 +63,8 @@ pub fn Drinks() -> Element {
                 }
             }
             div { class: "counter-buttons",
-                button { 
-                    class: "increment-button", 
+                button {
+                    class: "increment-button",
                     onclick: move |_| {
                         storage::add_drink_by(drink_selected());
                         drink_count.set(storage::get_count_by(drink_selected()));

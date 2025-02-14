@@ -2,18 +2,18 @@ use crate::{
     components::{
         Drinks, DynamicBackground, EndNightButton, Stats, TonightAchievements, WittyMessage,
     },
-    storage::storage,
+    storage::storage::{has_active_session, start_new_session},
 };
 use dioxus::prelude::*;
 
 #[component]
 pub fn Tonight() -> Element {
     use_effect(move || {
-        if !storage::has_active_session() {
-            storage::start_new_session();
+        if !has_active_session() {
+            start_new_session();
         }
     });
-    
+
     rsx! {
         div { class: "tonight-view-container",
             DynamicBackground {}

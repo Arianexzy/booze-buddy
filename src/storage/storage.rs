@@ -80,6 +80,7 @@ fn load_data() -> DrinkingHistory {
 
 fn get_storage_path() -> PathBuf {
     let path = PathBuf::from("/data/user/0/com.ariane.BoozeBuddy/files");
-    fs::create_dir_all(&path).expect("Failed to create storage directory");
+    fs::create_dir_all(&path)
+        .expect("storage::storage::get_storage_path: Failed to create storage directory");
     path.join("drinking_history.json")
 }
