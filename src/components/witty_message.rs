@@ -11,11 +11,9 @@ pub struct WittyMessageProps {
 pub fn WittyMessage(props: WittyMessageProps) -> Element {
     rsx! {
         document::Link { rel: "stylesheet", href: WITTY_MESSAGE }
-        
+
         div { class: "witty-message-container",
-            p { class: "witty-message", 
-                "{props.message}"
-            }
+            p { class: "witty-message", "{props.message}" }
         }
     }
 }
