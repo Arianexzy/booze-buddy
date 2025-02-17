@@ -9,9 +9,7 @@ use dioxus::prelude::*;
 #[component]
 pub fn Tonight() -> Element {
     use_effect(move || {
-        if !has_active_session() {
-            start_new_session();
-        }
+        start_or_continue_drinking_session();
     });
 
     rsx! {
@@ -24,5 +22,11 @@ pub fn Tonight() -> Element {
             TonightAchievements {}
             EndNightButton {}
         }
+    }
+}
+
+fn start_or_continue_drinking_session() {
+    if !has_active_session() {
+        start_new_session();
     }
 }
