@@ -1,6 +1,6 @@
 use crate::Route;
 use dioxus::prelude::*;
-use lucide_dioxus::{Beer, Calendar, Trophy};
+use lucide_dioxus::{Beer, Calendar, Trophy, Settings2};
 
 const NAVBAR_CSS: Asset = asset!("/assets/styling/navbar.css");
 
@@ -36,6 +36,15 @@ pub fn Navbar() -> Element {
                         to: Route::Achievements {},
                         Trophy {}
                         span { class: "navbar-label", "Achievements" }
+                    }
+                }
+                li { key: "settings",
+                    Link {
+                        class: "navbar-link",
+                        active_class: "active",
+                        to: Route::Settings {},
+                        Settings2 {}
+                        span { class: "navbar-label", "Settings" }
                     }
                 }
             }
