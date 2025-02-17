@@ -33,38 +33,44 @@ pub const DRINK_TYPES: [DrinkDisplay; 4] = [
     },
 ];
 
+#[derive(PartialEq, Clone, Props)]
+pub struct DrinksProps {
+    on_drink_added: EventHandler<()>,
+}
+
 #[component]
-pub fn Drinks() -> Element {
+pub fn Drinks(props: DrinksProps) -> Element {
     rsx! {
         document::Link { rel: "stylesheet", href: DRINKS_CSS }
 
         div { class: "drinks-container",
             div { class: "drink-buttons",
-                { DRINK_TYPES
-                    .iter()
-                    .map(|drink| {
-                        let mut drink_count = use_resource(move || async move {
+                {
+                    DRINK_TYPES
+                        .iter()
+                        .map(|drink| {
+                            let mut drink_count = use_resource(move || async move {
                                 storage::get_count_by(drink.drink_type)
-                        });
-                        let count = match &*drink_count.read_unchecked() {
-                            Some(count) => *count,
-                            _ => 0,
-                        };
-                        
-                        rsx! {
-                            button {
-                                class: "drink-button",
-                                key: "{drink.label}",
-                                ondoubleclick: move |_| {
-                                    storage::add_drink_by(drink.drink_type);
-                                    drink_count.restart();
-                                },
-                                div { class: "drink-button-icon", "{drink.icon}" }
-                                span { class: "drink-button-label", "{drink.label}" }
-                                span { class: "drink-count", "{count}" }
+                            });
+                            let count = match &*drink_count.read_unchecked() {
+                                Some(count) => *count,
+                                _ => 0,
+                            };
+                            rsx! {
+                                button {
+                                    class: "drink-button",
+                                    key: "{drink.label}",
+                                    ondoubleclick: move |_| {
+                                        storage::add_drink_by(drink.drink_type);
+                                        drink_count.restart();
+                                        props.on_drink_added.call(());
+                                    },
+                                    div { class: "drink-button-icon", "{drink.icon}" }
+                                    span { class: "drink-button-label", "{drink.label}" }
+                                    span { class: "drink-count", "{count}" }
+                                }
                             }
-                        }
-                    })
+                        })
                 }
             }
         }
