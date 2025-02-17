@@ -1,99 +1,81 @@
-.drinks-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-    padding: 0 1rem;
-    margin-bottom: 2rem;
-    margin-top: 2rem;
-}
-
 .drink-buttons {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 0.5rem;
-    grid-column: span 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Fix grid overflow */
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+    justify-items: center; /* Center grid items */
+    align-items: center;
+    margin: 0 auto;
+    max-width: 600px; /* Prevent over-stretching on tablets */
 }
 
 .drink-button {
-    padding: 0.8rem;
-    border-radius: 0.75rem;
-    /* Semi-transparent white background with blur */
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    /* Add a subtle border */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text);
+    position: relative;
+    background: #2b2b2b;
+    border: none;
+    border-radius: 16px;
+    padding: 1.5rem;
+    width: 100%;
+    min-height: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    transition: all 0.2s ease;
+    justify-content: center;
+    transition: transform 0.2s;
 }
 
-.drink-button.selected {
-    /* Bright cyan with transparency */
-    background: rgba(56, 239, 237, 0.4);
-    backdrop-filter: blur(12px);
-    /* Subtle glow effect */
-    box-shadow: 0 2px 8px rgba(56, 239, 237, 0.3);
-    border: 1px solid rgba(56, 239, 237, 0.5);
+.drink-button:active {
+    transform: scale(0.97);
 }
 
+.drink-button::after {
+    content: "🍻 Double tap to party!";
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: #ffd700;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    pointer-events: none;
+}
 
 .drink-button-icon {
-    font-size: 24px;
-    line-height: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.3));
 }
 
 .drink-button-label {
-    font-size: 0.75rem;
-    font-weight: 500;
+    display: block;
+    font-size: 1rem;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* Responsive Adjustments */
-@media (min-width: 480px) {
-    .drink-button-container {
-        grid-template-columns: repeat(5, 1fr);
-    }
-    
-    .drink-button-label {
-        font-size: 0.85rem;
-    }
-}
-
-.counter-buttons {
-    display: grid;
-    flex-direction: column;
-    gap: 0.5rem;
-    height: 100%;
-    grid-colum: 3;
-    grid-row: span 2;
-}
-
-.increment-button, .decrement-button {
-    flex: 1;
-    border: none;
-    border-radius: 0.75rem;
-    font-size: 1.5rem;
+.drink-count {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #ff4757;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.9rem;
     font-weight: bold;
-    color: var(--text);
-    transition: all 0.2s ease;
-    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.increment-button {
-    /* Semi-transparent green */
-    background: rgba(34, 197, 94, 0.4);
-    border: 1px solid rgba(34, 197, 94, 0.5);
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
-.decrement-button {
-    /* Semi-transparent red */
-    background: rgba(239, 68, 68, 0.4);
-    border: 1px solid rgba(239, 68, 68, 0.5);
+.drink-button.doubleclick-active {
+    animation: pulse 0.3s ease-out;
+    background: rgba(255, 215, 0, 0.1);
 }
