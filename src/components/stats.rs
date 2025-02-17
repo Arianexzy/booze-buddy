@@ -1,3 +1,4 @@
+use crate::storage::storage::drink_history::get_current_bac;
 use dioxus::prelude::*;
 
 const STATS_CSS: Asset = asset!("assets/styling/stats.css");
@@ -13,7 +14,13 @@ pub fn Stats(props: StatsProps) -> Element {
         Some(count) => *count,
         None => 0,
     };
-    
+
+    let bac_resource = use_resource(move || async move { get_current_bac() });
+    let bac_display = match &*bac_resource.read_unchecked() {
+        Some(bac) => format!("{:.3}", bac),
+        None => "N/A".to_string(),
+    };
+
     rsx! {
         document::Link { rel: "stylesheet", href: STATS_CSS }
         div { class: "stats-container",
@@ -24,7 +31,7 @@ pub fn Stats(props: StatsProps) -> Element {
                 }
                 div { class: "bac",
                     span { "Estimated BAC: " }
-                    span { "0.08" }
+                    span { "{bac_display}" }
                 }
             }
         }

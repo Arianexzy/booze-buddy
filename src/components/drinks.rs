@@ -1,4 +1,7 @@
-use crate::storage::{models::DrinkType, storage};
+use crate::storage::{
+    models::DrinkType,
+    storage::drink_history::{add_drink_by, get_count_by},
+};
 use dioxus::prelude::*;
 
 const DRINKS_CSS: Asset = asset!("/assets/styling/drinks.css");
@@ -50,7 +53,7 @@ pub fn Drinks(props: DrinksProps) -> Element {
                         .iter()
                         .map(|drink| {
                             let mut drink_count = use_resource(move || async move {
-                                storage::get_count_by(drink.drink_type)
+                                get_count_by(drink.drink_type)
                             });
                             let count = match &*drink_count.read_unchecked() {
                                 Some(count) => *count,
@@ -61,7 +64,7 @@ pub fn Drinks(props: DrinksProps) -> Element {
                                     class: "drink-button",
                                     key: "{drink.label}",
                                     ondoubleclick: move |_| {
-                                        storage::add_drink_by(drink.drink_type);
+                                        add_drink_by(drink.drink_type);
                                         drink_count.restart();
                                         props.on_drink_added.call(());
                                     },

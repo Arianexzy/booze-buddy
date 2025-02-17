@@ -18,3 +18,6 @@ pub use tonight_achievements::*;
 
 mod end_night_button;
 pub use end_night_button::*;
+
+mod settings_form;
+pub use settings_form::*;

@@ -1,10 +1,10 @@
 Ideas:
-- change BAC color 
+- change BAC color
 
 - Dynamic background color will have like a gradient shade of the Rainbow spectrum
     - Starting at Violet, there will be a gradient of Violet at the top and Indigo at the bottom
     - On each drink, the background will change gradient color to the next Rainbow color like:
-        - V/V, I/v, B/i, G/b, Y/g, O/y, R/o, R/R   
+        - V/V, I/v, B/i, G/b, Y/g, O/y, R/o, R/R
         - Lower case letter represents being the recessive color (just being the bottom gradient part)
         - Last color will be pure red
         - ** Use the colors from the System Monitor tool that are used for the CPU's
@@ -15,3 +15,9 @@ Ideas:
     - in the Achievement view, keep track of what achievements have been made and how many times
 
 - Consider using the Ciggy Buddy button instead.
+
+- Convert ounces to liters and pounds to kilograms for the BAC calc
+
+- only need to save one set of user data.  Just overwrite the old data with the new data.
+
+- settings.json file is not work ****

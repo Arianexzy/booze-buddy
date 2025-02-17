@@ -1,4 +1,7 @@
-use crate::storage::models::{DrinkType, DrinkingHistory, DrinkingSession};
+use crate::storage::{
+    models::{DrinkType, DrinkingHistory, DrinkingSession},
+    storage::settings::get_user,
+};
 use parking_lot::Mutex;
 use std::fs;
 use std::path::PathBuf;
@@ -57,6 +60,15 @@ pub fn get_past_sessions() -> Vec<DrinkingSession> {
     with_storage(|history| history.past_sessions().into_iter().cloned().collect())
 }
 
+pub fn get_current_bac() -> f32 {
+    with_storage(|history| {
+        let user = get_user();
+        history
+            .current_session()
+            .map_or(0.0, |session| session.calculate_bac(&user.unwrap()))
+    })
+}
+
 fn with_storage<F, R>(f: F) -> R
 where
     F: FnOnce(&mut DrinkingHistory) -> R,
@@ -84,7 +96,7 @@ fn load_data() -> DrinkingHistory {
 
 fn get_storage_path() -> PathBuf {
     let path = PathBuf::from("/data/user/0/com.ariane.BoozeBuddy/files");
-    fs::create_dir_all(&path)
+    fs::create_dir_all(&path) // creates a directory if it doesn't exist
         .expect("storage::storage::get_storage_path: Failed to create storage directory");
     path.join("drinking_history.json")
 }

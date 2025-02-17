@@ -1,6 +1,6 @@
 use crate::Route;
 use dioxus::prelude::*;
-use lucide_dioxus::{Beer, Calendar, Trophy, Settings2};
+use lucide_dioxus::{Beer, Calendar, Settings2, Trophy};
 
 const NAVBAR_CSS: Asset = asset!("/assets/styling/navbar.css");
 

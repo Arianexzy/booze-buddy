@@ -1,0 +1,137 @@
+.settings-form {
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+    border: 2px solid #ff3e3e;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0 0 15px rgba(255, 62, 62, 0.3);
+    position: relative;
+}
+
+.settings-form::before {
+    content: "🍺 DRINK STATS 🍺";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    padding: 0 10px;
+    color: #ff3e3e;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #ff3e3e;
+    font-size: 1.2em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.form-input,
+.form-select {
+    width: 100%;
+    padding: 12px;
+    background: #333;
+    border: 2px solid #ff3e3e;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 62, 62, 0.5);
+    transform: scale(1.02);
+}
+
+.form-input::placeholder {
+    color: #666;
+}
+
+.form-select option {
+    background: #333;
+    color: #fff;
+}
+
+.form-submit {
+    width: 100%;
+    padding: 15px;
+    background: #ff3e3e;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.form-submit:hover {
+    background: #ff5555;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 62, 62, 0.4);
+}
+
+.form-submit:active {
+    transform: translateY(1px);
+}
+
+/* Easter egg - random drunk messages on hover */
+.form-submit:hover::after {
+    content: attr(data-drunk-message);
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ff3e3e;
+    font-size: 0.9em;
+    white-space: nowrap;
+    animation: wobble 0.5s ease infinite;
+}
+
+/* Drunk animation */
+@keyframes wobble {
+    0% { transform: translateX(-50%) rotate(0deg); }
+    25% { transform: translateX(-53%) rotate(-5deg); }
+    75% { transform: translateX(-47%) rotate(5deg); }
+    100% { transform: translateX(-50%) rotate(0deg); }
+}
+
+/* Add some fun to the form inputs */
+.form-input:invalid {
+    animation: shake 0.5s linear;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+/* Responsive design for mobile drunks */
+@media (max-width: 600px) {
+    .settings-form {
+        margin: 20px 10px;
+        padding: 15px;
+    }
+    
+    .form-submit {
+        font-size: 1.1em;
+        padding: 12px;
+    }
+}
