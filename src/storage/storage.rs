@@ -19,8 +19,12 @@ pub fn end_current_session() {
     });
 }
 
-pub fn has_active_session() -> bool {
-    with_storage(|history| history.current_session().is_some())
+pub fn get_count_by(drink_type: DrinkType) -> i32 {
+    with_storage(|history| {
+        history
+            .current_session()
+            .map_or(0, |session| session.count_by(drink_type))
+    })
 }
 
 pub fn add_drink_by(drink_type: DrinkType) {
@@ -41,12 +45,12 @@ pub fn remove_last(drink_type: DrinkType) {
     })
 }
 
-pub fn get_count_by(drink_type: DrinkType) -> i32 {
-    with_storage(|history| {
-        history
-            .current_session()
-            .map_or(0, |session| session.count_by(drink_type))
-    })
+pub fn get_total_drinks() -> i32 {
+    with_storage(|history| history.current_session().unwrap().total_drinks())
+}
+
+pub fn has_active_session() -> bool {
+    with_storage(|history| history.current_session().is_some())
 }
 
 pub fn get_past_sessions() -> Vec<DrinkingSession> {
