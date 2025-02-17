@@ -15,4 +15,7 @@ pub enum Route {
     
     #[route("/achievements")]
     Achievements {},
+    
+    #[route("/settings")]
+    Settings {},
 }
