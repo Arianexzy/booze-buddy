@@ -18,9 +18,7 @@ Ideas:
 
 - Convert ounces to liters and pounds to kilograms for the BAC calc
 
-- only need to save one set of user data.  Just overwrite the old data with the new data.
-
-- settings.json file is not work ****
+- Need to add some information about how the BAC is used and calculated so the User is aware of how that works. 
 
 
 COMMANDS:
