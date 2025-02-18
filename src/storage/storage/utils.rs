@@ -1,10 +1,9 @@
-use parking_lot::Mutex;
 use std::fs;
 use std::path::PathBuf;
 
 pub fn get_app_path() -> PathBuf {
     let path = PathBuf::from("/data/user/0/com.ariane.BoozeBuddy/files");
-    fs::create_dir_all(&path)
+    fs::create_dir_all(&path) // creates a directory if it doesn't exist
         .expect("storage::utilities::get_app_path: Failed to create directory");
     path
 }
