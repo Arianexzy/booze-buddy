@@ -20,13 +20,16 @@ Ideas:
 
 - Need to add some information about how the BAC is used and calculated so the User is aware of how that works. 
 
+- Definitely need to rework the BAC calc. The hour since last drink thing seems to be draining the BAC way too fast. 
+- I need to somehow let the user start up a new session. Otherwise, my BAC calc will be way off especially with the time since last drink calc. 
+
 
 COMMANDS:
 adb install /home/kss/coding/ciggy-buddy/target/dx/ciggy-buddy/debug/android/app/app/build/outputs/apk/debug/app-debug.apk
 adb logcat | grep -E 'Rust|Dioxus'   
 
 // Enter app's data space
-adb shell run-as com.ariane.CiggyBuddy
+adb shell run-as com.ariane.BoozeBuddy
 
 // Find the app's namespace
 adb shell pm list packages | grep <INSERT SOME PATTERN HERE>

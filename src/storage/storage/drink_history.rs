@@ -1,7 +1,10 @@
 use super::utils::*;
 use crate::storage::{
     models::{DrinkType, DrinkingHistory, DrinkingSession},
-    storage::{error::StorageResult, settings::get_user},
+    storage::{
+        error::{StorageError, StorageResult},
+        settings::get_user,
+    },
 };
 use parking_lot::Mutex;
 use std::path::PathBuf;
@@ -10,11 +13,16 @@ static HISTORY_STORAGE: Mutex<Option<DrinkingHistory>> = Mutex::new(None);
 
 // CORE STORAGE FUNCTIONS
 
-fn with_active_session<F, R>(f: F) -> R
+fn with_current_session<F, R>(f: F) -> StorageResult<R>
 where
     F: FnOnce(&mut DrinkingSession) -> R,
 {
-    with_history(|history| f(history.ensure_active_session()))
+    with_history(|history| {
+        let session = history
+            .current_session()
+            .ok_or(StorageError::NoCurrentSession)?;
+        Ok(f(session))
+    })
 }
 
 fn with_history<F, R>(f: F) -> R
@@ -23,7 +31,7 @@ where
 {
     let mut storage = HISTORY_STORAGE.lock();
     if storage.is_none() {
-        *storage = Some(load_data());
+        *storage = Some(load_data().expect("Failed to load history data"));
     }
     f(storage.as_mut().unwrap())
 }
@@ -31,23 +39,24 @@ where
 // PUBLIC API
 
 pub fn get_total_drinks() -> StorageResult<i32> {
-    with_active_session(|session| Ok(session.total_drinks()))
+    with_current_session(|session| session.total_drinks())
 }
 
 pub fn get_count_by(drink_type: DrinkType) -> StorageResult<i32> {
-    with_active_session(|session| Ok(session.count_by(drink_type)))
+    with_current_session(|session| session.count_by(drink_type))
 }
 
 pub fn get_current_bac() -> StorageResult<f32> {
     let user = get_user();
-    with_active_session(|session| Ok(session.calculate_bac(&user)))
+    with_current_session(|session| session.calculate_bac(&user))
 }
 
 pub fn add_drink_by(drink_type: DrinkType) -> StorageResult<()> {
     with_history(|history| {
         let session = history.ensure_active_session();
         session.add_drink_by(drink_type);
-        save_data(history);
+        save_data(history)
+            .map_err(|e| StorageError::SaveFailed(format!("add_drink_by failed: {}", e)))?;
         Ok(())
     })
 }
@@ -56,7 +65,8 @@ pub fn remove_last(drink_type: DrinkType) -> StorageResult<()> {
     with_history(|history| {
         let session = history.ensure_active_session();
         session.remove_last(drink_type);
-        save_data(history);
+        save_data(history)
+            .map_err(|e| StorageError::SaveFailed(format!("remove_last failed: {}", e)))?;
         Ok(())
     })
 }
@@ -64,9 +74,10 @@ pub fn remove_last(drink_type: DrinkType) -> StorageResult<()> {
 pub fn end_current_session() -> StorageResult<()> {
     with_history(|history| {
         history.end_current_session();
-        save_data(history);
-    });
-    Ok(())
+        save_data(history)
+            .map_err(|e| StorageError::SaveFailed(format!("end_current_session failed: {}", e)))?;
+        Ok(())
+    })
 }
 
 pub fn get_past_sessions() -> StorageResult<Vec<DrinkingSession>> {
@@ -77,14 +88,15 @@ pub fn get_past_sessions() -> StorageResult<Vec<DrinkingSession>> {
 
 // PRIVATE HELPER FUNCTIONS
 
-fn save_data(data: &DrinkingHistory) {
+fn save_data(data: &DrinkingHistory) -> StorageResult<()> {
     let path = get_history_path();
-    save_json(path, data).expect("Failed to save Drinking History")
+    save_json(path, data).map_err(|e| StorageError::SaveFailed(e.to_string()))
 }
 
-fn load_data() -> DrinkingHistory {
+fn load_data() -> StorageResult<DrinkingHistory> {
     let path = get_history_path();
-    load_json(path).expect("Failed to load Drinking History")
+    load_json(path)
+        .map_err(|e| StorageError::LoadFailed(format!("load_data failed: {}", e)))
 }
 
 fn get_history_path() -> PathBuf {

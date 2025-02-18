@@ -2,11 +2,11 @@ use thiserror::Error;
 
 #[derive(Debug, thiserror::Error)]
 pub enum StorageError {
-    #[error("No active session found")]
-    NoActiveSession,
+    #[error("No current session found")]
+    NoCurrentSession,
     #[error("Failed to save data: {0}")]
     SaveFailed(String),
-    #[error("failed to load data: {0}")]
+    #[error("Failed to load data: {0}")]
     LoadFailed(String),
 }
 

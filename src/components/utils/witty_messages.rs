@@ -31,7 +31,7 @@ impl WittyMessageBank {
             ],
         }
     }
-    
+
     pub fn get_random_message() -> String {
         let bank = Self::new();
         bank.messages
@@ -39,5 +39,4 @@ impl WittyMessageBank {
             .unwrap_or(&"¯\\_(ツ)_/¯")
             .to_string()
     }
-    
 }

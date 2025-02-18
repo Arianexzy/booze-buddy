@@ -15,7 +15,7 @@ impl DrinkingHistory {
         self.current_session().unwrap()
     }
 
-    fn current_session(&mut self) -> Option<&mut DrinkingSession> {
+    pub fn current_session(&mut self) -> Option<&mut DrinkingSession> {
         self.current_session_index
             .and_then(|index| self.sessions.get_mut(index))
     }
