@@ -21,3 +21,14 @@ Ideas:
 - only need to save one set of user data.  Just overwrite the old data with the new data.
 
 - settings.json file is not work ****
+
+
+COMMANDS:
+adb install /home/kss/coding/ciggy-buddy/target/dx/ciggy-buddy/debug/android/app/app/build/outputs/apk/debug/app-debug.apk
+adb logcat | grep -E 'Rust|Dioxus'   
+
+// Enter app's data space
+adb shell run-as com.ariane.CiggyBuddy
+
+// Find the app's namespace
+adb shell pm list packages | grep <INSERT SOME PATTERN HERE>

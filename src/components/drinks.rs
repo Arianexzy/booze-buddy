@@ -53,7 +53,7 @@ pub fn Drinks(props: DrinksProps) -> Element {
                         .iter()
                         .map(|drink| {
                             let mut drink_count = use_resource(move || async move {
-                                get_count_by(drink.drink_type)
+                                get_count_by(drink.drink_type).unwrap_or(0)
                             });
                             let count = match &*drink_count.read_unchecked() {
                                 Some(count) => *count,
@@ -64,7 +64,7 @@ pub fn Drinks(props: DrinksProps) -> Element {
                                     class: "drink-button",
                                     key: "{drink.label}",
                                     ondoubleclick: move |_| {
-                                        add_drink_by(drink.drink_type);
+                                        add_drink_by(drink.drink_type).expect("Failed to add drink");
                                         drink_count.restart();
                                         props.on_drink_added.call(());
                                     },

@@ -1,5 +1,4 @@
 pub mod drink_history;
+pub mod error;
 pub mod settings;
-
-mod utils;
-pub use utils::*;
+pub mod utils;

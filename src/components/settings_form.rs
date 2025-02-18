@@ -11,15 +11,9 @@ pub fn SettingsForm() -> Element {
     let mut weight = use_signal(|| String::new());
     let mut gender = use_signal(|| Gender::Other);
 
-    // Load existing profile
-    use_effect(move || {
-        if let Some(user) = get_user() {
-            weight.set(user.weight.to_string());
-            gender.set(user.gender);
-        }
-    });
+    use_effect(move || load_existing_user(&mut weight, &mut gender));
 
-    let handle_submit = move |event: Event<FormData>| {
+    let update_user = move |event: Event<FormData>| {
         event.prevent_default();
         if let Ok(weight_value) = weight().parse::<f32>() {
             let user = User {
@@ -33,12 +27,10 @@ pub fn SettingsForm() -> Element {
     rsx! {
         document::Link { rel: "stylesheet", href: SETTINGS_CSS }
 
-        form {
-            class: "settings-form",
-            onsubmit: handle_submit,
+        form { class: "settings-form", onsubmit: update_user,
 
             div { class: "form-group",
-                label { "Weight (lbs)" },
+                label { "Weight (lbs)" }
                 input {
                     class: "form-input",
                     r#type: "number",
@@ -51,28 +43,33 @@ pub fn SettingsForm() -> Element {
             }
 
             div { class: "form-group",
-                label { "Gender" },
+                label { "Gender" }
                 select {
                     class: "form-select",
                     value: "{gender():?}",
                     onchange: move |event| {
-                        gender.set(match event.value().as_str() {
-                            "Male" => Gender::Male,
-                            "Female" => Gender::Female,
-                            _ => Gender::Other,
-                        })
+                        gender
+                            .set(
+                                match event.value().as_str() {
+                                    "Male" => Gender::Male,
+                                    "Female" => Gender::Female,
+                                    _ => Gender::Other,
+                                },
+                            )
                     },
-                    option { value: "Male", "Male" },
-                    option { value: "Female", "Female" },
-                    option { value: "Other", "Other" },
+                    option { value: "Male", "Male" }
+                    option { value: "Female", "Female" }
+                    option { value: "Other", "Other" }
                 }
             }
 
-            button {
-                class: "form-submit",
-                r#type: "submit",
-                "Save Settings"
-            }
+            button { class: "form-submit", r#type: "submit", "Save Settings" }
         }
     }
+}
+
+fn load_existing_user(weight: &mut Signal<String>, gender: &mut Signal<Gender>) {
+    let user = get_user();
+    weight.set(user.weight.to_string());
+    gender.set(user.gender);
 }

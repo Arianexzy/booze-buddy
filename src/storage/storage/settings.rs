@@ -12,8 +12,8 @@ pub fn save_user_settings(user: User) {
     })
 }
 
-pub fn get_user() -> Option<User> {
-    with_settings(|settings| settings.user.clone())
+pub fn get_user() -> User {
+    with_settings(|settings| settings.user.clone().unwrap_or_default())
 }
 
 fn with_settings<F, R>(f: F) -> R

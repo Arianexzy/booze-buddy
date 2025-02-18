@@ -8,12 +8,19 @@ pub struct DrinkingHistory {
 }
 
 impl DrinkingHistory {
-    pub fn current_session(&mut self) -> Option<&mut DrinkingSession> {
+    pub fn ensure_active_session(&mut self) -> &mut DrinkingSession {
+        if self.current_session().is_none() {
+            self.start_new_session();
+        }
+        self.current_session().unwrap()
+    }
+
+    fn current_session(&mut self) -> Option<&mut DrinkingSession> {
         self.current_session_index
             .and_then(|index| self.sessions.get_mut(index))
     }
 
-    pub fn start_new_session(&mut self) {
+    fn start_new_session(&mut self) {
         let mut session = DrinkingSession::default();
         session.start();
         self.sessions.push(session);

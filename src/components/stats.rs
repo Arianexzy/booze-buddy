@@ -1,4 +1,3 @@
-use crate::storage::storage::drink_history::get_current_bac;
 use dioxus::prelude::*;
 
 const STATS_CSS: Asset = asset!("assets/styling/stats.css");
@@ -6,6 +5,7 @@ const STATS_CSS: Asset = asset!("assets/styling/stats.css");
 #[derive(PartialEq, Clone, Props)]
 pub struct StatsProps {
     pub total_drinks_resource: Resource<i32>,
+    pub bac_resource: Resource<f32>,
 }
 
 #[component]
@@ -15,8 +15,7 @@ pub fn Stats(props: StatsProps) -> Element {
         None => 0,
     };
 
-    let bac_resource = use_resource(move || async move { get_current_bac() });
-    let bac_display = match &*bac_resource.read_unchecked() {
+    let bac_display = match &*props.bac_resource.read_unchecked() {
         Some(bac) => format!("{:.3}", bac),
         None => "N/A".to_string(),
     };
