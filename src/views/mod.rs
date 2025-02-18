@@ -1,11 +1,11 @@
 mod tonight;
-pub use tonight::Tonight;
+pub use tonight::TonightView;
 
 mod history;
-pub use history::History;
+pub use history::DrinkingHistoryView;
 
 mod achievements;
-pub use achievements::Achievements;
+pub use achievements::AchievementsView;
 
 mod settings;
-pub use settings::Settings;
+pub use settings::SettingsView;

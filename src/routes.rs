@@ -8,14 +8,14 @@ pub enum Route {
     #[layout(Navbar)]
     
     #[route("/")]
-    Tonight {},
+    TonightView {},
     
     #[route("/history")]
-    History {},
+    DrinkingHistoryView {},
     
     #[route("/achievements")]
-    Achievements {},
+    AchievementsView {},
     
     #[route("/settings")]
-    Settings {},
+    SettingsView {},
 }

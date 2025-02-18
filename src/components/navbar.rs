@@ -15,7 +15,7 @@ pub fn Navbar() -> Element {
                     Link {
                         class: "navbar-link",
                         active_class: "active",
-                        to: Route::Tonight {},
+                        to: Route::TonightView {},
                         Beer {}
                         span { class: "navbar-label", "Tonight" }
                     }
@@ -24,7 +24,7 @@ pub fn Navbar() -> Element {
                     Link {
                         class: "navbar-link",
                         active_class: "active",
-                        to: Route::History {},
+                        to: Route::DrinkingHistoryView {},
                         Calendar {}
                         span { class: "navbar-label", "History" }
                     }
@@ -33,7 +33,7 @@ pub fn Navbar() -> Element {
                     Link {
                         class: "navbar-link",
                         active_class: "active",
-                        to: Route::Achievements {},
+                        to: Route::AchievementsView {},
                         Trophy {}
                         span { class: "navbar-label", "Achievements" }
                     }
@@ -42,7 +42,7 @@ pub fn Navbar() -> Element {
                     Link {
                         class: "navbar-link",
                         active_class: "active",
-                        to: Route::Settings {},
+                        to: Route::SettingsView {},
                         Settings2 {}
                         span { class: "navbar-label", "Settings" }
                     }

@@ -7,7 +7,7 @@ use crate::{
 use dioxus::prelude::*;
 
 #[component]
-pub fn Tonight() -> Element {
+pub fn TonightView() -> Element {
     let mut total_drinks_resource =
         use_resource(move || async move { get_total_drinks().unwrap_or(0) });
 

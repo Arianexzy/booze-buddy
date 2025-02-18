@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 #[component]
-pub fn Achievements() -> Element {
+pub fn AchievementsView() -> Element {
     rsx! {
         h1 { class: "view-header", "Achievements" }
     }
