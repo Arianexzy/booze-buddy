@@ -28,13 +28,12 @@ pub fn TonightView() -> Element {
 
     rsx! {
         div { class: "tonight-view-container",
-            h1 { class: "view-header", "Booze Buddy" }
             if has_active_session() {
                 DynamicBackground { total_drinks: total_drinks_resource().unwrap_or(0) }
             }
+            Stats { total_drinks_resource, bac_resource }
             WittyMessage { message: witty_message(), key: witty_message() }
             Drinks { on_drink_added: update_view, reset_drink_count }
-            Stats { total_drinks_resource, bac_resource }
             TonightAchievements {}
             EndNightButton { on_end_night: reset_view }
         }
