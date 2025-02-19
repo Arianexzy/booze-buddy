@@ -3,7 +3,7 @@ use crate::{
         Drinks, DynamicBackground, EndNightButton, Stats, TonightAchievements, WittyMessage,
         WittyMessageBank,
     },
-    storage::storage::drink_history::{get_current_bac, get_total_drinks},
+    storage::storage::drink_history::{get_current_bac, get_total_drinks, has_active_session},
 };
 use dioxus::prelude::*;
 
@@ -19,19 +19,18 @@ pub fn TonightView() -> Element {
         bac_resource.restart();
         witty_message.set(WittyMessageBank::get_random_message());
     };
-
+        
     rsx! {
         div { class: "tonight-view-container",
-            DynamicBackground {}
             h1 { class: "view-header", "Booze Buddy" }
-            WittyMessage {
-                message: witty_message() ,
-                key: witty_message(),
+            if has_active_session() {
+                DynamicBackground { total_drinks: total_drinks_resource().unwrap_or(0) }
             }
+            WittyMessage { message: witty_message(), key: witty_message() }
             Drinks { on_drink_added: update_view }
             Stats { total_drinks_resource, bac_resource }
             TonightAchievements {}
-            EndNightButton {}
+            EndNightButton { on_end_night: update_view }
         }
     }
 }

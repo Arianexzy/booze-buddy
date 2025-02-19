@@ -10,11 +10,22 @@
     --button-border: rgba(255, 255, 255, 0.2);
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
 body {
-    background-color: #0f1116;
-    color: #ffffff;
+    background-color: var(--background);
+    color: var(--text);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 20px;
 }
 
 #links {
@@ -44,14 +55,25 @@ body {
 .tonight-view-container,
 .history-view-container,
 .achievements-view-container {
+    /* position: relative; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
     padding-bottom: calc(4rem + env(safe-area-inset-bottom));
 }
 
 .tonight-view-container {
     display: flex;
+    position: relative;
+    z-index: 0;
     flex-direction: column;
     min-height: 100dvh;
     box-sizing: border-box;
+    background-color: transparent;
 }
 
 .history-view-container {
