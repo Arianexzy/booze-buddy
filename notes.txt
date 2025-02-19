@@ -1,5 +1,4 @@
 Ideas:
-- change BAC color
 
 - Dynamic background color will have like a gradient shade of the Rainbow spectrum
     - Starting at Violet, there will be a gradient of Violet at the top and Indigo at the bottom
@@ -22,6 +21,14 @@ Ideas:
 
 - Definitely need to rework the BAC calc. The hour since last drink thing seems to be draining the BAC way too fast. 
 - I need to somehow let the user start up a new session. Otherwise, my BAC calc will be way off especially with the time since last drink calc. 
+
+- I want more variety ranges in the BAC color scheme. It takes too many drinks to hit later levels. 
+
+- Clicking the navbar icons is causing that weird blue box to show and it looks glitchy.
+- Let's have the navbar icons be grayed out when they are not selected
+
+- Take a new approach to the end button. Once the user starts a session by adding a drink, the end button will pop up
+
 
 
 COMMANDS:

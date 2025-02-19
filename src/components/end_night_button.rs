@@ -2,11 +2,17 @@ use dioxus::prelude::*;
 use dioxus_motion::prelude::*;
 use easer::functions::Easing;
 use std::time::Duration;
+use crate::storage::storage::drink_history::end_current_session;
 
 const END_NIGHT_BUTTON_CSS: Asset = asset!("/assets/styling/end_night_button.css");
 
+#[derive(PartialEq, Clone, Props)]
+pub struct EndNightButtonProps {
+    on_end_night: EventHandler<()>,
+}
+
 #[component]
-pub fn EndNightButton() -> Element {
+pub fn EndNightButton(props: EndNightButtonProps) -> Element {
     // let mut progress = use_motion(0.0f32);
     let mut is_holding = use_signal(|| false);
     let animation_duration = Duration::from_millis(2500);
@@ -49,7 +55,13 @@ pub fn EndNightButton() -> Element {
     rsx! {
         document::Link { rel: "stylesheet", href: END_NIGHT_BUTTON_CSS }
         div { class: "end-night-container",
-            button { class: "end-night-button" }
+            button {
+                class: "end-night-button",
+                ondoubleclick: move |_| {
+                    props.on_end_night.call(());
+                    end_current_session().expect("Failed to end current session");
+                },
+            }
         }
     }
 }

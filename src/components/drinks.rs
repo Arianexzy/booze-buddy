@@ -52,25 +52,23 @@ pub fn Drinks(props: DrinksProps) -> Element {
                     DRINK_TYPES
                         .iter()
                         .map(|drink| {
-                            let mut drink_count = use_resource(move || async move {
+                            let mut drink_count_resource = use_resource(move || async move {
                                 get_count_by(drink.drink_type).unwrap_or(0)
                             });
-                            let count = match &*drink_count.read_unchecked() {
-                                Some(count) => *count,
-                                _ => 0,
-                            };
+                            let drink_count = drink_count_resource().unwrap_or(0);
+                            
                             rsx! {
                                 button {
                                     class: "drink-button",
                                     key: "{drink.label}",
                                     ondoubleclick: move |_| {
                                         add_drink_by(drink.drink_type).expect("Failed to add drink");
-                                        drink_count.restart();
+                                        drink_count_resource.restart();
                                         props.on_drink_added.call(());
                                     },
                                     div { class: "drink-button-icon", "{drink.icon}" }
                                     span { class: "drink-button-label", "{drink.label}" }
-                                    span { class: "drink-count", "{count}" }
+                                    span { class: "drink-count", "{drink_count}" }
                                 }
                             }
                         })

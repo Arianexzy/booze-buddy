@@ -38,6 +38,12 @@ where
 
 // PUBLIC API
 
+pub fn has_active_session() -> bool {
+    with_history(|history| {
+        history.current_session().is_some()
+    })
+}
+
 pub fn get_total_drinks() -> StorageResult<i32> {
     with_current_session(|session| session.total_drinks())
 }

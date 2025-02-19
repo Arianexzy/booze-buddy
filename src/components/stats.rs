@@ -43,10 +43,7 @@ pub fn Stats(props: StatsProps) -> Element {
                 }
                 div { class: "bac",
                     span { "Estimated BAC: " }
-                    span {
-                        class: "bac-value {bac_class}",
-                        "{bac_display}"
-                    }
+                    span { class: "bac-value {bac_class}", "{bac_display}" }
                 }
             }
         }
