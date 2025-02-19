@@ -34,6 +34,9 @@ pub fn TonightView() -> Element {
             Stats { total_drinks_resource, bac_resource }
             WittyMessage { message: witty_message(), key: witty_message() }
             Drinks { on_drink_added: update_view, reset_drink_count }
+            if !has_active_session() {
+                h3 { class: "view-header", "Double click a drink to start!"}
+            }
             TonightAchievements {}
             EndNightButton { on_end_night: reset_view }
         }
