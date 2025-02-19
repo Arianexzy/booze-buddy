@@ -39,6 +39,7 @@ pub const DRINK_TYPES: [DrinkDisplay; 4] = [
 #[derive(PartialEq, Clone, Props)]
 pub struct DrinksProps {
     on_drink_added: EventHandler<()>,
+    reset_drink_count: Signal<i32>,
 }
 
 #[component]
@@ -53,10 +54,10 @@ pub fn Drinks(props: DrinksProps) -> Element {
                         .iter()
                         .map(|drink| {
                             let mut drink_count_resource = use_resource(move || async move {
+                                props.reset_drink_count.read();
                                 get_count_by(drink.drink_type).unwrap_or(0)
                             });
                             let drink_count = drink_count_resource().unwrap_or(0);
-                            
                             rsx! {
                                 button {
                                     class: "drink-button",

@@ -13,13 +13,19 @@ pub fn TonightView() -> Element {
         use_resource(move || async move { get_total_drinks().unwrap_or(0) });
     let mut bac_resource = use_resource(move || async move { get_current_bac().unwrap_or(0.0) });
     let mut witty_message = use_signal(|| "Ready for poor decisions?".to_string());
+    let mut reset_drink_count = use_signal(|| 0);
 
     let update_view = move |_: ()| {
-        total_drinks_resource.restart();
-        bac_resource.restart();
-        witty_message.set(WittyMessageBank::get_random_message());
+        refresh_stats(&mut total_drinks_resource, &mut bac_resource);
+        witty_message.set(WittyMessageBank::get_random_active_session_message());
     };
-        
+
+    let reset_view = move |_: ()| {
+        refresh_stats(&mut total_drinks_resource, &mut bac_resource);
+        reset_drink_count.set(reset_drink_count() + 1);
+        witty_message.set(WittyMessageBank::get_random_end_session_message());
+    };
+
     rsx! {
         div { class: "tonight-view-container",
             h1 { class: "view-header", "Booze Buddy" }
@@ -27,10 +33,15 @@ pub fn TonightView() -> Element {
                 DynamicBackground { total_drinks: total_drinks_resource().unwrap_or(0) }
             }
             WittyMessage { message: witty_message(), key: witty_message() }
-            Drinks { on_drink_added: update_view }
+            Drinks { on_drink_added: update_view, reset_drink_count }
             Stats { total_drinks_resource, bac_resource }
             TonightAchievements {}
-            EndNightButton { on_end_night: update_view }
+            EndNightButton { on_end_night: reset_view }
         }
     }
+}
+
+fn refresh_stats(total_drinks_resource: &mut Resource<i32>, bac_resource: &mut Resource<f32>) {
+    total_drinks_resource.restart();
+    bac_resource.restart();
 }
