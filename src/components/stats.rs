@@ -36,15 +36,13 @@ pub fn Stats(props: StatsProps) -> Element {
         document::Link { rel: "stylesheet", href: STATS_CSS }
 
         div { class: "stats-container",
-            div { class: "drink-stats",
-                div { class: "total-drinks",
-                    span { "Total Drinks: " }
-                    span { "{total_drinks}" }
-                }
-                div { class: "bac",
-                    span { "Estimated BAC: " }
-                    span { class: "bac-value {bac_class}", "{bac_display}" }
-                }
+            div { class: "total-drinks",
+                span { "Total Drinks: " }
+                span { "{total_drinks}" }
+            }
+            div { class: "bac",
+                span { "Estimated BAC: " }
+                span { class: "bac-value {bac_class}", "{bac_display}" }
             }
         }
     }
