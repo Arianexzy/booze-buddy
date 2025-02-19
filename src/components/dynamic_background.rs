@@ -11,12 +11,12 @@ pub struct DynamicBackgroundProps {
 pub fn DynamicBackground(props: DynamicBackgroundProps) -> Element {
     let hue = (props.total_drinks * 20) % 360;
     let background_color = format!("hsl({}, 70%, 50%)", hue);
-    
+
     rsx! {
         document::Link { rel: "stylesheet", href: DYNAMIC_BACKGROUND_CSS }
-        
-        div { 
-            class: "dynamic-background", 
+
+        div {
+            class: "dynamic-background",
             style: format!("background-color: {}", background_color),
         }
     }

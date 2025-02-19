@@ -39,9 +39,7 @@ where
 // PUBLIC API
 
 pub fn has_active_session() -> bool {
-    with_history(|history| {
-        history.current_session().is_some()
-    })
+    with_history(|history| history.current_session().is_some())
 }
 
 pub fn get_total_drinks() -> StorageResult<i32> {
@@ -101,8 +99,7 @@ fn save_data(data: &DrinkingHistory) -> StorageResult<()> {
 
 fn load_data() -> StorageResult<DrinkingHistory> {
     let path = get_history_path();
-    load_json(path)
-        .map_err(|e| StorageError::LoadFailed(format!("load_data failed: {}", e)))
+    load_json(path).map_err(|e| StorageError::LoadFailed(format!("load_data failed: {}", e)))
 }
 
 fn get_history_path() -> PathBuf {

@@ -1,8 +1,8 @@
+use crate::storage::storage::drink_history::end_current_session;
 use dioxus::prelude::*;
 use dioxus_motion::prelude::*;
 use easer::functions::Easing;
 use std::time::Duration;
-use crate::storage::storage::drink_history::end_current_session;
 
 const END_NIGHT_BUTTON_CSS: Asset = asset!("/assets/styling/end_night_button.css");
 
