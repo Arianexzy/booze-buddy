@@ -1,9 +1,70 @@
-.dynamic-background {
+@property --base-hue { 
+    syntax: "<number>"; 
+    inherits: false; 
+    initial-value: 270; 
+}
+
+@property --hue-range {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 30;
+}
+
+.dynamic-background-container {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1; 
-    transition: background-color 0.5s ease;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.gradient-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        hsl(calc(var(--base-hue) + var(--hue-range)), 75%, 35%),
+        hsl(var(--base-hue), 80%, 45%),
+        hsl(calc(var(--base-hue) - var(--hue-range)), 75%, 35%)
+    );
+    opacity: 0.9;
+    transition: 
+        --base-hue 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+        --hue-range 1.2s ease-out,
+        filter 1.2s ease-in-out; 
+    animation: 
+        flowing-river 15s linear infinite,
+        subtle-zoom 3s ease-in-out infinite;
+    transform: scale(1);
+}
+
+.gradient-layer.dark-tint { filter: brightness(0.8) saturate(0.85); }
+.gradient-layer.darker-tint { filter: brightness(0.65) saturate(0.8); }
+.gradient-layer.darkest-tint { filter: brightness(0.5) saturate(0.75); }
+
+@keyframes flowing-river {
+    0% { background-position: 0% 0% }
+    100% { background-position: 0% 150% }
+}
+
+.noise-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 50% 50%, 
+            rgba(255,255,255,0.1) 0%, 
+            rgba(0,0,0,0.15) 100%),
+        repeating-linear-gradient(
+            45deg,
+            rgba(0,0,0,0.03) 0px,
+            rgba(0,0,0,0.03) 2px,
+            transparent 2px,
+            transparent 4px
+        );
+    mix-blend-mode: soft-light;
+    opacity: 0.15;
+    pointer-events: none;
 }
