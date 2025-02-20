@@ -21,10 +21,14 @@ pub fn Stats(props: StatsProps) -> Element {
                 b if b < 0.02 => "bac-sober",
                 b if b < 0.04 => "bac-safe",
                 b if b < 0.08 => "bac-buzzed",
-                b if b < 0.15 => "bac-tipsy",
+                b if b < 0.12 => "bac-tipsy",
+                b if b < 0.16 => "bac-relaxed",
+                b if b < 0.20 => "bac-merry",
                 b if b < 0.24 => "bac-drunk",
-                b if b < 0.35 => "bac-very-drunk",
-                b if b < 0.50 => "bac-danger",
+                b if b < 0.28 => "bac-very-drunk",
+                b if b < 0.32 => "bac-danger",
+                b if b < 0.36 => "bac-wasted",
+                b if b < 0.40 => "bac-blackout",
                 _ => "bac-extreme",
             };
             (format!("{:.3}", bac), class)
