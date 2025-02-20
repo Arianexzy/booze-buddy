@@ -1,9 +1,8 @@
 .witty-message-container {
     position: relative;
     background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(4px);
     border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     color: white;
     
@@ -12,56 +11,86 @@
     justify-content: center;
     
     width: 100%;
-    height: 3rem;
+    height: 3.5rem;
     margin: 0.5rem 0;    
     
-    transform-origin: center;
-    animation: messageSlam 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; 
+    animation: textBounce3 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);    
 }
 
 .witty-message {
-    font-size: 1.1rem;
-    font-weight: 500;
-    font-style: italic;
+    font-size: 1.2rem;
+    font-weight: 600;
     text-align: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    animation: textBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);    
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); 
     width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.2;
+    padding: 0 1rem;
+    display: inline-block;
 }
 
-@keyframes messageSlam {
-    0% {
-        transform: scale(0) rotate(-10deg);
-        opacity: 0;
-    }
-    50% {
-        transform: scale(1.1) rotate(5deg);
-    }
-    75% {
-        transform: scale(0.95) rotate(-2deg);
-    }
-    100% {
-        transform: scale(1) rotate(0);
-        opacity: 1;
-    }
+/* Rotating thru each animation to get them to rerun */
+.witty-message.dynamic-0 {
+    animation: textBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.witty-message.dynamic-1 {
+    animation: textBounce1 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.witty-message.dynamic-2 {
+    animation: textBounce2 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 @keyframes textBounce {
     0% {
-        transform: scale(0);
-        filter: blur(4px);
+        transform: scale(0.8);
+        opacity: 0;
     }
-    60% {
-        transform: scale(1.1);
-        filter: blur(0);
-    }
-    80% {
-        transform: scale(0.95);
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
     }
     100% {
         transform: scale(1);
     }
+}
+
+@keyframes textBounce1 {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes textBounce2 {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+@keyframes textBounce3 {
+    0% { transform: scale(0); filter: blur(4px); }
+    60% { transform: scale(1.1); filter: blur(0); }
+    80% { transform: scale(0.95); }
+    100% { transform: scale(1); }
 }
