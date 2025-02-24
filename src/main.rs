@@ -19,7 +19,11 @@ fn App() -> Element {
     rsx! {
         document::Meta {
             name: "viewport",
-            content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+            content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover",
+        }
+        document::Meta {
+            name: "theme-color",
+            content: "#0f172a",
         }
         // Global app resources
         document::Link { rel: "icon", href: FAVICON }
