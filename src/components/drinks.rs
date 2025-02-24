@@ -69,7 +69,9 @@ pub fn Drinks(props: DrinksProps) -> Element {
                                     },
                                     div { class: "drink-button-icon", "{drink.icon}" }
                                     span { class: "drink-button-label", "{drink.label}" }
-                                    span { class: "drink-count", "{drink_count}" }
+                                    if drink_count > 0 {
+                                        span { class: "drink-count", "{drink_count}" }
+                                    }
                                 }
                             }
                         })

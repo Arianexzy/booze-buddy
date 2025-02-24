@@ -10,9 +10,9 @@ pub struct WittyMessageProps {
 
 #[component]
 pub fn WittyMessage(props: WittyMessageProps) -> Element {
-    // @dev I could not get the animation rerun on each update
+    // @dev I could not get the animation to rerun on each update.
     // I tried everything I could.  The only thing that worked
-    // was creating new class names and animation names and rotating
+    // was creating new class and animation names and rotating
     // thru them with the modulo operator
 
     let rotation_counter = *&*props.animation_trigger.read_unchecked();
