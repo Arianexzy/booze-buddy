@@ -1,16 +1,18 @@
+/* Navbar: Fully transparent with a strong blur to blend with dynamic background */
 .navbar {
-    background-color: white;
+    background: rgba(0, 0, 0, 0.1); /* Minimal opacity to enhance blur */
+    backdrop-filter: blur(12px); /* Stronger blur for a sleek glass effect */
     padding: 0.5rem;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     z-index: 20;
-    border-top-left-radius: 0.75rem;
-    border-top-right-radius: 0.75rem;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.15); /* Neutral, subtle border */
+    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.25); /* Slightly darker shadow for depth */
 }
 
+/* Navbar List: Clean, evenly spaced layout */
 .navbar-list {
     display: flex;
     justify-content: space-around;
@@ -19,21 +21,44 @@
     margin: 0;
 }
 
+/* Navbar Link: Smooth, interactive icons with labels */
 .navbar-link {
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #c084fc; 
+    color: #94a3b8; /* Dim gray for inactive state */
     text-decoration: none;
+    transition: color 0.2s ease, transform 0.1s ease; /* Smooth transitions */
+    outline: none; /* Remove default outline */
+    -webkit-tap-highlight-color: transparent; /* Kill the blue tap highlight */
 }
 
+/* Remove blue box on focus and active states */
+.navbar-link:focus,
+.navbar-link:active {
+    outline: none; /* Double down on removing outlines */
+    -webkit-tap-highlight-color: transparent; /* Ensure no blue flash */
+}
+
+/* Active State: Teal with a subtle scale for emphasis */
 .navbar-link.active {
-    color: #6b21a8;
+    color: #38efed; /* Teal that complements purple-to-red spectrum */
+    transform: scale(1.1); /* Slight scale-up for active state */
 }
 
+/* Tap/Hover Feedback: Glow and scale without blue box */
+.navbar-link:hover,
+.navbar-link:active {
+    color: #38efed; /* Matches active state */
+    transform: scale(1.15); /* Slightly larger tap feedback */
+    text-shadow: 0 0 8px rgba(56, 239, 237, 0.5); /* Glow effect */
+}
+
+/* Navbar Label: Crisp and readable against dynamic background */
 .navbar-label {
     font-size: 0.75rem;
     line-height: 1rem;
     margin-top: 0.25rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4); /* Stronger shadow for contrast */
 }

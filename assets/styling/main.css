@@ -63,8 +63,8 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 10px;
-    padding-bottom: calc(4rem + env(safe-area-inset-bottom));
-}
+    padding-top: calc(10px + env(safe-area-inset-top));
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom));}
 
 .tonight-view-container {
     display: flex;

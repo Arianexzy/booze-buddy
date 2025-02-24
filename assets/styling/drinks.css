@@ -1,33 +1,35 @@
+/* Drink Buttons Container: Keep 2x2 grid and full-width */
 .drink-buttons {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
     padding: 0.75rem;
     width: 100%;
-    /* Removed max-width to allow buttons to stretch */
     margin: 0 auto;
     justify-content: center;
 }
 
+/* Drink Button: Sleek, glass-like with modern polish */
 .drink-button {
     position: relative;
-    height: 72px; /* Fixed height instead of aspect ratio */
-    padding: 0.5rem 1rem; /* More horizontal padding */
-    border: 1px solid whitesmoke;
+    height: 72px;
+    padding: 0.5rem 1rem;
+    border: none; /* Remove static border */
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.2); /* Darker, more transparent base */
+    backdrop-filter: blur(10px); /* Stronger blur for glass effect */
     display: flex;
-    flex-direction: row; /* Changed to row */
+    flex-direction: row;
     align-items: center;
-    gap: 0.3rem; /* Space between icon and text */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 0.3rem;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Subtle resting shadow */
 }
 
-/* Add subtle inner glow to make buttons pop */
+/* Inner Glow: Dynamic gradient border effect */
 .drink-button::before {
     content: '';
     position: absolute;
@@ -35,45 +37,65 @@
     border-radius: 12px;
     padding: 1px;
     background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0.2),
-        rgba(255, 255, 255, 0.1)
+        135deg,
+        rgba(255, 255, 255, 0.3),
+        rgba(56, 239, 237, 0.2) /* Teal tint to match navbar */
     );
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
+    transition: background 0.3s ease;
 }
 
+/* Hover State: Subtle lift and glow */
 .drink-button:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1),
-                0 0 15px rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2),
+                0 0 10px rgba(56, 239, 237, 0.2); /* Teal glow */
 }
 
+/* Active State: Pressed effect with refined feedback */
 .drink-button:active {
-    transform: translateY(1px);
+    transform: translateY(0);
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Reduced shadow when pressed */
 }
 
+/* Drink Button Icon: Neutral with smooth interaction */
 .drink-button-icon {
     font-size: 1.5rem;
-    flex-shrink: 0; /* Prevent icon from shrinking */
+    flex-shrink: 0;
+    color: #94a3b8; /* Dim gray to match navbar inactive */
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
+/* Icon Hover/Active: Vibrant teal */
+.drink-button:hover .drink-button-icon,
+.drink-button:active .drink-button-icon {
+    color: #38efed; /* Matches navbar active color */
+}
 
-/* Label styling */
+/* Label Styling: Crisp and modern */
 .drink-button-label {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Improved readability */
     font-weight: 500;
     text-align: center;
+    transition: color 0.3s ease;
 }
 
+/* Label Hover/Active: Vibrant teal */
+.drink-button:hover .drink-button-label,
+.drink-button:active .drink-button-label {
+    color: #38efed;
+}
+
+/* Drink Count: Bold badge with rainbow-friendly contrast */
 .drink-count {
     position: absolute;
     top: -0.375rem;
@@ -94,52 +116,14 @@
     padding: 0 0.375rem;
 }
 
-/* Container width breakpoints */
-@media (min-width: 640px) {
-    .drink-buttons {
-        padding: 0.75rem 2rem; /* More padding on larger screens */
-    }
-}
-
-@media (max-width: 380px) {
-    .drink-buttons {
-        gap: 0.5rem;
-        padding: 0.5rem;
-    }
-    
-    .drink-button {
-        height: 44px;
-        padding: 0.375rem 0.75rem;
-    }
-}
-
-
-/* Enhanced animations */
+/* Existing Animations (Unchanged) */
 @keyframes wobblyPress {
-    0% { 
-        transform: scale(1) rotate(0deg);
-        background: rgba(255, 255, 255, 0.15);
-    }
-    20% { 
-        transform: scale(0.9) rotate(-5deg);
-        background: rgba(255, 255, 255, 0.4);
-    }
-    40% { 
-        transform: scale(1.1) rotate(5deg);
-        background: rgba(255, 255, 255, 0.3);
-    }
-    60% { 
-        transform: scale(0.95) rotate(-3deg);
-        background: rgba(255, 255, 255, 0.25);
-    }
-    80% { 
-        transform: scale(1.05) rotate(2deg);
-        background: rgba(255, 255, 255, 0.2);
-    }
-    100% { 
-        transform: scale(1) rotate(0deg);
-        background: rgba(255, 255, 255, 0.15);
-    }
+    0% { transform: scale(1) rotate(0deg); background: rgba(0, 0, 0, 0.2); }
+    20% { transform: scale(0.9) rotate(-5deg); background: rgba(0, 0, 0, 0.4); }
+    40% { transform: scale(1.1) rotate(5deg); background: rgba(0, 0, 0, 0.3); }
+    60% { transform: scale(0.95) rotate(-3deg); background: rgba(0, 0, 0, 0.25); }
+    80% { transform: scale(1.05) rotate(2deg); background: rgba(0, 0, 0, 0.2); }
+    100% { transform: scale(1) rotate(0deg); background: rgba(0, 0, 0, 0.2); }
 }
 
 @keyframes partyIcon {
@@ -152,52 +136,22 @@
 }
 
 @keyframes counterBounce {
-    0% { 
-        transform: scale(1);
-        filter: hue-rotate(0deg);
-    }
-    30% { 
-        transform: scale(1.5);
-        filter: hue-rotate(180deg);
-    }
-    60% { 
-        transform: scale(0.8);
-        filter: hue-rotate(270deg);
-    }
-    80% { 
-        transform: scale(1.2);
-        filter: hue-rotate(360deg);
-    }
-    100% { 
-        transform: scale(1);
-        filter: hue-rotate(0deg);
-    }
+    0% { transform: scale(1); filter: hue-rotate(0deg); }
+    30% { transform: scale(1.5); filter: hue-rotate(180deg); }
+    60% { transform: scale(0.8); filter: hue-rotate(270deg); }
+    80% { transform: scale(1.2); filter: hue-rotate(360deg); }
+    100% { transform: scale(1); filter: hue-rotate(0deg); }
 }
 
 @keyframes glowRing {
-    0% { 
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7),
-                    0 0 0 0 rgba(255, 215, 0, 0.7);
-    }
-    30% { 
-        box-shadow: 0 0 30px 15px rgba(255, 255, 255, 0),
-                    0 0 50px 25px rgba(255, 215, 0, 0);
-    }
-    100% { 
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0),
-                    0 0 0 0 rgba(255, 215, 0, 0);
-    }
+    0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7), 0 0 0 0 rgba(255, 215, 0, 0.7); }
+    30% { box-shadow: 0 0 30px 15px rgba(255, 255, 255, 0), 0 0 50px 25px rgba(255, 215, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0), 0 0 0 0 rgba(255, 215, 0, 0); }
 }
 
 @keyframes particleBurst {
-    0% { 
-        transform: translate(0, 0) scale(0);
-        opacity: 1;
-    }
-    100% { 
-        transform: translate(var(--x), var(--y)) scale(1);
-        opacity: 0;
-    }
+    0% { transform: translate(0, 0) scale(0); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(1); opacity: 0; }
 }
 
 .drink-button.doubleclick-active {
@@ -213,7 +167,6 @@
     animation: counterBounce 0.8s cubic-bezier(0.36, 0, 0.66, 1.54);
 }
 
-/* Pseudo-elements for particle effects */
 .drink-button.doubleclick-active::before,
 .drink-button.doubleclick-active::after {
     content: '🎉';
@@ -239,18 +192,21 @@
     animation: particleBurst 0.6s ease-out forwards 0.1s;
 }
 
-/* Responsive adjustments */
+/* Responsive Adjustments (Updated for consistency) */
+@media (min-width: 640px) {
+    .drink-buttons {
+        padding: 0.75rem 2rem;
+    }
+}
+
 @media (max-width: 380px) {
     .drink-buttons {
-        padding: 1rem;
-        gap: 0.75rem;
+        gap: 0.5rem;
+        padding: 0.5rem;
     }
     
-    .drink-button-icon {
-        font-size: 2rem;
-    }
-    
-    .drink-button-label {
-        font-size: 0.875rem;
+    .drink-button {
+        height: 44px;
+        padding: 0.375rem 0.75rem;
     }
 }
