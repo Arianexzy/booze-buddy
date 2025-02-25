@@ -106,9 +106,9 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Beer Goggles On".to_string(),
-            description: "Reach a BAC of 0.04% - things are starting to look better!".to_string(),
+            description: "Reach a BAC of 0.05% - things are starting to look better!".to_string(),
             tier: AchievementTier::Bronze,
-            conditions: vec![AchievementCondition::MinBAC(0.04)],
+            conditions: vec![AchievementCondition::MinBAC(0.05)],
         });
         self.achievements.push(Achievement {
             title: "Shot Caller".to_string(),
@@ -185,7 +185,7 @@ impl AchievementRegistry {
             conditions: vec![AchievementCondition::MinBAC(0.08)],
         });
         self.achievements.push(Achievement {
-            title: "Mixed Up Like Milkshake".to_string(),
+            title: "Mixed Up Like A Milkshake".to_string(),
             description: "Have two mixed drinks in one night".to_string(),
             tier: AchievementTier::Silver,
             conditions: vec![AchievementCondition::DrinkTypeCount(
@@ -216,20 +216,20 @@ impl AchievementRegistry {
 
         // Gold
         self.achievements.push(Achievement {
-            title: "Break Dance".to_string(),
+            title: "Sexy Six Shooter".to_string(),
             description: "Crush six drinks in a night".to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::TotalDrinks(6)],
         });
         self.achievements.push(Achievement {
             title: "Juicy Booty Shorts".to_string(),
-            description: "Slam eight beers in a night".to_string(),
+            description: "Slam eight beers in a night - time to stare awkwardly at a booty".to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Beer, 8)],
         });
         self.achievements.push(Achievement {
             title: "Juggalo 4 Life".to_string(),
-            description: "Hit a BAC of 0.16 – you insane clown possy".to_string(),
+            description: "Hit a BAC of 0.16 – you're no insane clown pussy".to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::MinBAC(0.16)],
         });
@@ -256,7 +256,7 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Staggered Stumbler".to_string(),
-            description: "Space 3 drinks exactly 10-15 minutes apart—drunk clockwork!".to_string(),
+            description: "Space 3 drinks exactly 15-20 minutes apart—drunk clockwork!".to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, _| {
                 if session.events.len() < 3 {
@@ -268,7 +268,7 @@ impl AchievementRegistry {
                         return true;
                     } // Only check first two gaps
                     let gap = window[1].timestamp - window[0].timestamp;
-                    gap >= Duration::minutes(10) && gap <= Duration::minutes(15)
+                    gap >= Duration::minutes(15) && gap <= Duration::minutes(20)
                 })
             })],
         });
