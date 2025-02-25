@@ -157,25 +157,25 @@ impl AchievementRegistry {
         self.achievements.push(Achievement {
             title: "Two Pump Chump".to_string(),
             description: "Down two shots".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Silver,
             conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Shot, 2)],
         });
         self.achievements.push(Achievement {
             title: "Breaking Bad".to_string(),
             description: "Crush four drinks in a night".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Silver,
             conditions: vec![AchievementCondition::TotalDrinks(4)],
         });
         self.achievements.push(Achievement {
             title: "Wine a bit, you'll feel better".to_string(),
             description: "Throw down three glasses of wine".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Silver,
             conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Wine, 3)],
         });
         self.achievements.push(Achievement {
             title: "Beer Belly".to_string(),
             description: "Hammer five beers".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Silver,
             conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Beer, 5)],
         });
         self.achievements.push(Achievement {
@@ -218,37 +218,37 @@ impl AchievementRegistry {
         self.achievements.push(Achievement {
             title: "Break Dance".to_string(),
             description: "Crush six drinks in a night".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::TotalDrinks(6)],
         });
         self.achievements.push(Achievement {
             title: "Juicy Booty Shorts".to_string(),
             description: "Slam eight beers in a night".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Beer, 8)],
         });
         self.achievements.push(Achievement {
             title: "Juggalo 4 Life".to_string(),
             description: "Hit a BAC of 0.16 – you insane clown possy".to_string(),
-            tier: AchievementTier::Silver,
+            tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::MinBAC(0.16)],
         });
         self.achievements.push(Achievement {
             title: "Whiskey Dick".to_string(),
             description: "Down three shots".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Shot, 3)],
         });
         self.achievements.push(Achievement {
             title: "Carpet Muncher".to_string(),
             description: "Five glasses of wine - your face is gonna hit the floor".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Wine, 5)],
         });
         self.achievements.push(Achievement {
             title: "Cocktail Cocktease".to_string(),
             description: "Have 2 mixed drinks in 30 minutes—slow down, tiger.".to_string(),
-            tier: AchievementTier::Silver,
+            tier: AchievementTier::Gold,
             conditions: vec![
                 AchievementCondition::DrinkTypeCount(DrinkType::MixedDrink, 2),
                 AchievementCondition::DrinksWithinDuration(2, Duration::minutes(30)),
@@ -257,7 +257,7 @@ impl AchievementRegistry {
         self.achievements.push(Achievement {
             title: "Staggered Stumbler".to_string(),
             description: "Space 3 drinks exactly 10-15 minutes apart—drunk clockwork!".to_string(),
-            tier: AchievementTier::Silver,
+            tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, _| {
                 if session.events.len() < 3 {
                     return false;
@@ -295,7 +295,7 @@ impl AchievementRegistry {
         self.achievements.push(Achievement {
             title: "Rapid Pounding".to_string(),
             description: "Have 3 drinks in less than 30 minutes".to_string(),
-            tier: AchievementTier::Silver,
+            tier: AchievementTier::Gold,
             conditions: vec![
                 AchievementCondition::TotalDrinks(3),
                 AchievementCondition::DrinksWithinDuration(3, Duration::minutes(30)),
@@ -360,7 +360,7 @@ impl AchievementRegistry {
         self.achievements.push(Achievement {
             title: "Walk of Shame Preparation".to_string(),
             description: "Mixing three different drink types in one hour".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, _user| {
                 let last_hour = chrono::Local::now() - chrono::Duration::hours(1);
                 let recent_events = session
@@ -397,7 +397,7 @@ impl AchievementRegistry {
         self.achievements.push(Achievement {
             title: "Gang Bang".to_string(),
             description: "Have 4 different drink types in less than 2 hours".to_string(),
-            tier: AchievementTier::Platinum,
+            tier: AchievementTier::Gold,
             conditions: vec![
                 AchievementCondition::DrinkTypeCount(DrinkType::Beer, 1),
                 AchievementCondition::DrinkTypeCount(DrinkType::Wine, 1),
@@ -427,13 +427,13 @@ impl AchievementRegistry {
         self.achievements.push(Achievement {
             title: "Broke Ass Bitch".to_string(),
             description: "Crush 10 drinks in a night".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::TotalDrinks(10)],
         });
         self.achievements.push(Achievement {
             title: "Liquid Shits".to_string(),
             description: "Slam twelve beers in a night".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Beer, 12)],
         });
         self.achievements.push(Achievement {
@@ -445,31 +445,31 @@ impl AchievementRegistry {
         self.achievements.push(Achievement {
             title: "Tequila Mockingbird".to_string(),
             description: "Down five shots".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Shot, 5)],
         });
         self.achievements.push(Achievement {
             title: "Bottom of the Bottle".to_string(),
             description: "Hit seven glasses of wine".to_string(),
-            tier: AchievementTier::Bronze,
+            tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Wine, 7)],
         });
         self.achievements.push(Achievement {
             title: "Don't Text your Ex".to_string(),
             description: "Hit a BAC of 0.30 – they don't deserve you".to_string(),
-            tier: AchievementTier::Silver,
+            tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::MinBAC(0.30)],
         });
         self.achievements.push(Achievement {
             title: "Porcelain Throne Awaits".to_string(),
             description: "Hit a BAC of 0.35 – they don't deserve you".to_string(),
-            tier: AchievementTier::Silver,
+            tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::MinBAC(0.35)],
         });
         self.achievements.push(Achievement {
             title: "Long Live the Liver".to_string(),
             description: "Hit a BAC of 0.40 – Hail thy Liver for thy Liver is supreme".to_string(),
-            tier: AchievementTier::Silver,
+            tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::MinBAC(0.40)],
         });
         self.achievements.push(Achievement {
@@ -545,7 +545,7 @@ impl AchievementRegistry {
         self.achievements.push(Achievement {
             title: "Shotgun Shitshow".to_string(),
             description: "Alternate beer and shots 4 times—sloshed perfection!".to_string(),
-            tier: AchievementTier::Gold,
+            tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::Custom(|session, _| {
                 if session.events.len() < 4 {
                     return false;
