@@ -274,7 +274,7 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "BAC-kward Ass".to_string(),
-            description: "BAC drops below 0.05 after peaking above 0.10—sober up, dumbas"
+            description: "BAC drops below 0.05 after peaking above 0.10"
                 .to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, user| {
@@ -321,7 +321,7 @@ impl AchievementRegistry {
         self.achievements.push(Achievement {
             title: "Double Penetration".to_string(),
             description:
-                "Finish two different drink types simultaneously (within 20 minutes of each other)"
+                "Finish two different drinks within 20 minutes"
                     .to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, _user| {
@@ -378,7 +378,7 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Hangover From Hell".to_string(),
-            description: "BAC over 0.12 with three different drinks and more than 7 total drinks"
+            description: "BAC over 0.12, three different drinks and more than 7 total"
                 .to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, user| {
@@ -425,7 +425,7 @@ impl AchievementRegistry {
 
         // Platinum
         self.achievements.push(Achievement {
-            title: "Broke Ass Bitch".to_string(),
+            title: "Liquid Diet".to_string(),
             description: "Crush 10 drinks in a night".to_string(),
             tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::TotalDrinks(10)],
@@ -456,13 +456,13 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Don't Text your Ex".to_string(),
-            description: "Hit a BAC of 0.30 – they don't deserve you".to_string(),
+            description: "Hit a BAC of 0.30 – your ex doesn't deserve a champ like you".to_string(),
             tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::MinBAC(0.30)],
         });
         self.achievements.push(Achievement {
             title: "Porcelain Throne Awaits".to_string(),
-            description: "Hit a BAC of 0.35 – they don't deserve you".to_string(),
+            description: "Hit a BAC of 0.35 – The watery halls of the shits await".to_string(),
             tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::MinBAC(0.35)],
         });
@@ -507,7 +507,7 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Deep Throat Champion".to_string(),
-            description: "Down 5 drinks within 30 minutes - your gag reflex is impressive"
+            description: "5 drinks in 30 minutes - your gag reflex is hot"
                 .to_string(),
             tier: AchievementTier::Platinum,
             conditions: vec![
