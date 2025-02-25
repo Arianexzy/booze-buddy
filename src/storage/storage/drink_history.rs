@@ -55,11 +55,15 @@ pub fn get_current_bac() -> StorageResult<f32> {
     with_current_session(|session| session.calculate_bac(&user))
 }
 
-pub fn get_achievements() -> StorageResult<Vec<Achievement>> {
+pub fn get_all_achievements() -> StorageResult<Vec<Achievement>> {
+    with_current_session(|session| session.achievements.clone())
+}
+
+pub fn get_newly_unlocked_achievements() -> StorageResult<Vec<Achievement>> {
     let user = get_user();
     with_current_session(|session| {
-        session.check_achievements(&user);
-        session.achievements.clone()
+        let newly_unlocked = session.check_achievements(&user);
+        newly_unlocked
     })
 }
 
