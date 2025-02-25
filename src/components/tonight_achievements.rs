@@ -1,6 +1,9 @@
+use crate::storage::{
+    models::{Achievement, AchievementTier},
+    storage::drink_history::get_all_achievements,
+};
 use dioxus::prelude::*;
 use lucide_dioxus::Trophy;
-use crate::storage::{models::{Achievement, AchievementTier}, storage::drink_history::get_all_achievements};
 
 const TONIGHT_ACHIEVEMENTS_CSS: Asset = asset!("assets/styling/tonight_achievements.css");
 
@@ -15,9 +18,9 @@ pub fn TonightAchievements(props: TonightAchievementsProps) -> Element {
         Some(achievements) => achievements.clone(),
         None => vec![],
     };
-    
+
     let all_achievements = get_all_achievements().unwrap_or(vec![]);
-    
+
     rsx! {
         document::Link { rel: "stylesheet", href: TONIGHT_ACHIEVEMENTS_CSS }
 

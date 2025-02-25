@@ -223,7 +223,8 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Juicy Booty Shorts".to_string(),
-            description: "Slam eight beers in a night - time to stare awkwardly at a booty".to_string(),
+            description: "Slam eight beers in a night - time to stare awkwardly at a booty"
+                .to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Beer, 8)],
         });
@@ -274,8 +275,7 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "BAC-kward Ass".to_string(),
-            description: "BAC drops below 0.05 after peaking above 0.10"
-                .to_string(),
+            description: "BAC drops below 0.05 after peaking above 0.10".to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, user| {
                 let current_bac = session.calculate_bac(user);
@@ -320,9 +320,7 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Double Penetration".to_string(),
-            description:
-                "Finish two different drinks within 20 minutes"
-                    .to_string(),
+            description: "Finish two different drinks within 20 minutes".to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, _user| {
                 let mut events = session.events.clone();
@@ -378,8 +376,7 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Hangover From Hell".to_string(),
-            description: "BAC over 0.12, three different drinks and more than 7 total"
-                .to_string(),
+            description: "BAC over 0.12, three different drinks and more than 7 total".to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, user| {
                 // Mix of high BAC, lots of different drink types, and late night
@@ -507,8 +504,7 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Deep Throat Champion".to_string(),
-            description: "5 drinks in 30 minutes - your gag reflex is hot"
-                .to_string(),
+            description: "5 drinks in 30 minutes - your gag reflex is hot".to_string(),
             tier: AchievementTier::Platinum,
             conditions: vec![
                 AchievementCondition::TotalDrinks(5),

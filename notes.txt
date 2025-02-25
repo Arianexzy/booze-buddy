@@ -9,16 +9,18 @@
 
 - Need to add some information about how the BAC is used and calculated so the User is aware of how that works. 
 
-- Definitely need to rework the BAC calc. The hour since last drink thing seems to be draining the BAC way too fast. 
+- Definitely need to rework the BAC calc. The hour since last drink thing seems to be draining the BAC way too fast. And calc prob shouldn't go over 1.0
 
-- Fix the gray bar at the top that other apps dont have
+- Fix the gray bar at the top that other apps dont havev
 
 - Put the Total drinks and BAC stats on a single line
 
 - Fix the witty messages.  Many many more need to be added and/or adjusted. 
 
+- Need to fix the components loading before the CSS does. 
+
 COMMANDS:
-adb install /home/kss/coding/ciggy-buddy/target/dx/ciggy-buddy/debug/android/app/app/build/outputs/apk/debug/app-debug.apk
+adb install /home/kss/coding/booze-buddy/target/dx/booze-buddy/debug/android/app/app/build/outputs/apk/debug/app-debug.apk
 adb logcat | grep -E 'Rust|Dioxus'   
 
 // Enter app's data space
