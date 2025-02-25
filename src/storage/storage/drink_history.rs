@@ -1,6 +1,6 @@
 use super::utils::*;
 use crate::storage::{
-    models::{DrinkType, DrinkingHistory, DrinkingSession},
+    models::{Achievement, DrinkType, DrinkingHistory, DrinkingSession},
     storage::{
         error::{StorageError, StorageResult},
         settings::get_user,
@@ -53,6 +53,14 @@ pub fn get_count_by(drink_type: DrinkType) -> StorageResult<i32> {
 pub fn get_current_bac() -> StorageResult<f32> {
     let user = get_user();
     with_current_session(|session| session.calculate_bac(&user))
+}
+
+pub fn get_achievements() -> StorageResult<Vec<Achievement>> {
+    let user = get_user();
+    with_current_session(|session| {
+        session.check_achievements(&user);
+        session.achievements.clone()
+    })
 }
 
 pub fn add_drink_by(drink_type: DrinkType) -> StorageResult<()> {
