@@ -3,7 +3,9 @@ use crate::{
         Drinks, DynamicBackground, EndNightSlider, Stats, TonightAchievements, WittyMessage,
         WittyMessageBank,
     },
-    storage::storage::drink_history::{get_current_bac, get_total_drinks, has_active_session},
+    storage::storage::drink_history::{
+        get_achievements, get_current_bac, get_total_drinks, has_active_session,
+    },
 };
 use dioxus::prelude::*;
 
@@ -17,12 +19,14 @@ pub fn TonightView() -> Element {
     let mut witty_message =
         use_signal(|| "Ready for poor decisions? Double click a drink!".to_string());
     let mut animation_trigger = use_signal(|| 0);
+    let mut achievements = use_resource( move || async move { get_achievements().unwrap_or(vec![]) });
 
     // --- VIEW HANDLERS ---
     let update_view = move |_: ()| {
         refresh_stats(&mut total_drinks_resource, &mut bac_resource);
         witty_message.set(WittyMessageBank::get_random_active_session_message());
         trigger_witty_message_animation(&mut animation_trigger);
+        achievements.restart();
     };
     let reset_view = move |_: ()| {
         refresh_stats(&mut total_drinks_resource, &mut bac_resource);
@@ -45,7 +49,7 @@ pub fn TonightView() -> Element {
             }
             Drinks { on_drink_added: update_view, reset_drink_count }
             if has_active_session {
-                TonightAchievements {}
+                TonightAchievements { achievements}
                 EndNightSlider { on_end_night: reset_view }
             }
         }
