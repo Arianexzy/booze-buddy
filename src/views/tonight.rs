@@ -4,7 +4,8 @@ use crate::{
         WittyMessageBank,
     },
     storage::storage::drink_history::{
-        get_all_achievements, get_current_bac, get_total_drinks, has_active_session, get_newly_unlocked_achievements,
+        get_current_bac, get_newly_unlocked_achievements, get_total_drinks,
+        has_active_session,
     },
 };
 use dioxus::prelude::*;
@@ -19,15 +20,14 @@ pub fn TonightView() -> Element {
     let mut witty_message =
         use_signal(|| "Ready for poor decisions? Double click a drink!".to_string());
     let mut animation_trigger = use_signal(|| 0);
-    // let mut achievements = use_resource( move || async move { get_all_achievements().unwrap_or(vec![]) });
-    let mut newly_unlocked_achievements = use_resource( move || async move { get_newly_unlocked_achievements().unwrap_or(vec![]) });
+    let mut newly_unlocked_achievements =
+        use_resource(move || async move { get_newly_unlocked_achievements().unwrap_or(vec![]) });
 
     // --- VIEW HANDLERS ---
     let update_view = move |_: ()| {
         refresh_stats(&mut total_drinks_resource, &mut bac_resource);
         witty_message.set(WittyMessageBank::get_random_active_session_message());
         trigger_witty_message_animation(&mut animation_trigger);
-        // achievements.restart();
         newly_unlocked_achievements.restart();
     };
     let reset_view = move |_: ()| {
