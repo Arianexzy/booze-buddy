@@ -435,9 +435,9 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Walk of Shame".to_string(),
-            description: "Hit a BAC of 0.24 – hope you're not wearing heels".to_string(),
+            description: "Hit a BAC of 0.22 – hope you're not wearing heels".to_string(),
             tier: AchievementTier::Silver,
-            conditions: vec![AchievementCondition::MinBAC(0.24)],
+            conditions: vec![AchievementCondition::MinBAC(0.22)],
         });
         self.achievements.push(Achievement {
             title: "Tequila Mockingbird".to_string(),
@@ -450,12 +450,6 @@ impl AchievementRegistry {
             description: "Hit seven glasses of wine".to_string(),
             tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Wine, 7)],
-        });
-        self.achievements.push(Achievement {
-            title: "Don't Text your Ex".to_string(),
-            description: "Hit a BAC of 0.30 – your ex doesn't deserve a champ like you".to_string(),
-            tier: AchievementTier::Platinum,
-            conditions: vec![AchievementCondition::MinBAC(0.30)],
         });
         self.achievements.push(Achievement {
             title: "Porcelain Throne Awaits".to_string(),
@@ -513,11 +507,11 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Unholy Debauchery".to_string(),
-            description: "15 drinks and a BAC above 0.25 – you're a goddamn legend.".to_string(),
+            description: "15 drinks and a BAC above 0.27 – you're a goddamn legend.".to_string(),
             tier: AchievementTier::Platinum,
             conditions: vec![
                 AchievementCondition::TotalDrinks(15),
-                AchievementCondition::MinBAC(0.25),
+                AchievementCondition::MinBAC(0.27),
             ],
         });
         self.achievements.push(Achievement {
@@ -527,6 +521,22 @@ impl AchievementRegistry {
             conditions: vec![
                 AchievementCondition::TotalDrinks(15),
                 AchievementCondition::MinBAC(0.30),
+            ],
+        });
+        self.achievements.push(Achievement {
+            title: "Tom Hanks".to_string(),
+            description: "Hit a BAC of 0.35 – you are the captain now ".to_string(),
+            tier: AchievementTier::Platinum,
+            conditions: vec![
+                AchievementCondition::MinBAC(0.35),
+            ],
+        });
+        self.achievements.push(Achievement {
+            title: "Donald Trump".to_string(),
+            description: "Hit a BAC of 0.40 – you are where you shouldn't be ".to_string(),
+            tier: AchievementTier::Platinum,
+            conditions: vec![
+                AchievementCondition::MinBAC(0.40),
             ],
         });
         self.achievements.push(Achievement {
