@@ -1,12 +1,14 @@
-use super::constants::{DRINK_ALCOHOL_CONTENT, METABOLISM_RATE};
-use super::user::{Gender, User};
-use super::{DrinkEvent, DrinkType};
+use super::{
+    Achievement, AchievementRegistry, DRINK_ALCOHOL_CONTENT, DrinkEvent, DrinkType, Gender,
+    METABOLISM_RATE, User,
+};
 use chrono::{DateTime, Local};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct DrinkingSession {
     pub events: Vec<DrinkEvent>,
+    pub achievements: Vec<Achievement>,
     pub is_active: bool,
     pub start_time: Option<DateTime<Local>>,
     pub end_time: Option<DateTime<Local>>,
@@ -69,5 +71,14 @@ impl DrinkingSession {
 
             acc + drink_bac.max(0.0) // prevent negative BAC values
         })
+    }
+
+    pub fn check_achievements(&mut self, user: &User) {
+        let registry = AchievementRegistry::global();
+        for achievement in &registry.achievements {
+            if !self.achievements.contains(&achievement) && achievement.is_achieved(self, user) {
+                self.achievements.push(achievement.clone());
+            }
+        }
     }
 }
