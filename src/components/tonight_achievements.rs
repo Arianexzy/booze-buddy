@@ -1,20 +1,22 @@
 use dioxus::prelude::*;
 use lucide_dioxus::Trophy;
-use crate::storage::models::{Achievement, AchievementTier};
+use crate::storage::{models::{Achievement, AchievementTier}, storage::drink_history::get_all_achievements};
 
 const TONIGHT_ACHIEVEMENTS_CSS: Asset = asset!("assets/styling/tonight_achievements.css");
 
 #[derive(Debug, Clone, PartialEq, Props)]
 pub struct TonightAchievementsProps {
-    achievements: Resource<Vec<Achievement>>,
+    newly_unlocked_achievements: Resource<Vec<Achievement>>,
 }
 
 #[component]
 pub fn TonightAchievements(props: TonightAchievementsProps) -> Element {
-    let unlocked_achievements = match &*props.achievements.read_unchecked() {
+    let unlocked_achievements = match &*props.newly_unlocked_achievements.read_unchecked() {
         Some(achievements) => achievements.clone(),
         None => vec![],
     };
+    
+    let all_achievements = get_all_achievements().unwrap_or(vec![]);
     
     rsx! {
         document::Link { rel: "stylesheet", href: TONIGHT_ACHIEVEMENTS_CSS }
@@ -26,23 +28,31 @@ pub fn TonightAchievements(props: TonightAchievementsProps) -> Element {
                     "Tonight's Achievements"
                 }
             }
-            div { class: "tonight-achievements-list" ,
+            div { class: "tonight-achievements-list",
                 {
-                    unlocked_achievements.iter().map(|achievement| {
-                        let tier_class = match achievement.tier {
-                            AchievementTier::Bronze => "bronze",
-                            AchievementTier::Silver => "silver",
-                            AchievementTier::Gold => "gold",
-                            AchievementTier::Platinum => "platinum",
-                        };
-                        rsx!{
-                            div { 
-                                    class: "tonight-achievement-item achievement-{tier_class}", 
-                                    h3 { class: "tonight-achievement-title", "{achievement.title}" }
+                    all_achievements
+                        .iter()
+                        .map(|achievement| {
+                            let (tier_class, icon) = match achievement.tier {
+                                AchievementTier::Bronze => ("bronze", "🥉"),
+                                AchievementTier::Silver => ("silver", "🥈"),
+                                AchievementTier::Gold => ("gold", "🥇"),
+                                AchievementTier::Platinum => ("platinum", "🏆"),
+                            };
+                            let tier_class = match unlocked_achievements.contains(&achievement) {
+                                true => format!("{tier_class} new"),
+                                false => format!("{tier_class}"),
+                            };
+                            rsx! {
+                                div { class: "tonight-achievement-item achievement-{tier_class}",
+                                    h3 { class: "tonight-achievement-title",
+                                        "{achievement.title}"
+                                        span { "{icon}" }
+                                    }
                                     p { class: "tonight-achievement-description", "{achievement.description}" }
                                 }
-                        }
-                    })
+                            }
+                        })
                 }
             }
         }

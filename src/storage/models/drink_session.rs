@@ -73,12 +73,15 @@ impl DrinkingSession {
         })
     }
 
-    pub fn check_achievements(&mut self, user: &User) {
+    pub fn check_achievements(&mut self, user: &User) -> Vec<Achievement> {
+        let mut newly_unlocked = Vec::new();
         let registry = AchievementRegistry::global();
         for achievement in &registry.achievements {
             if !self.achievements.contains(&achievement) && achievement.is_achieved(self, user) {
                 self.achievements.push(achievement.clone());
+                newly_unlocked.push(achievement.clone());
             }
         }
+        newly_unlocked
     }
 }
