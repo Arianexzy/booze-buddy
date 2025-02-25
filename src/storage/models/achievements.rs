@@ -1,4 +1,4 @@
-use crate::storage::models::{DrinkingSession, DrinkType, User, Gender};
+use crate::storage::models::{DrinkType, DrinkingSession, Gender, User};
 use chrono::Duration;
 use serde::{Deserialize, Serialize};
 use std::sync::OnceLock;
@@ -34,7 +34,9 @@ impl Achievement {
         self.conditions.iter().all(|cond| match cond {
             AchievementCondition::TotalDrinks(drinks) => session.total_drinks() >= *drinks,
             AchievementCondition::MinBAC(bac) => session.calculate_bac(user) >= *bac,
-            AchievementCondition::DrinkTypeCount(drink_type, count) => session.count_by(*drink_type) >= *count,
+            AchievementCondition::DrinkTypeCount(drink_type, count) => {
+                session.count_by(*drink_type) >= *count
+            }
             AchievementCondition::DrinksWithinDuration(count, duration) => {
                 session.events.windows(*count as usize).any(|window| {
                     let first = window.first().unwrap();
@@ -60,11 +62,13 @@ impl AchievementRegistry {
             registry
         })
     }
-    
+
     pub fn new() -> Self {
-        Self { achievements: Vec::new() }
+        Self {
+            achievements: Vec::new(),
+        }
     }
-    
+
     pub fn register_achievements(&mut self) {
         // Bronze
         self.achievements.push(Achievement {
@@ -116,7 +120,10 @@ impl AchievementRegistry {
             title: "That's What She Said".to_string(),
             description: "Down 2 drinks within 30 minutes".to_string(),
             tier: AchievementTier::Bronze,
-            conditions: vec![AchievementCondition::DrinksWithinDuration(2, Duration::minutes(30))],
+            conditions: vec![AchievementCondition::DrinksWithinDuration(
+                2,
+                Duration::minutes(30),
+            )],
         });
         self.achievements.push(Achievement {
             title: "Buzz Lightyear".to_string(),
@@ -129,7 +136,9 @@ impl AchievementRegistry {
             description: "Take over 30 minutes to finish your first drink—pathetic!".to_string(),
             tier: AchievementTier::Bronze,
             conditions: vec![AchievementCondition::Custom(|session, _| {
-                if session.events.len() != 1 { return false; }
+                if session.events.len() != 1 {
+                    return false;
+                }
                 let first_drink = session.events.first().unwrap();
                 let time_since = chrono::Local::now() - first_drink.timestamp;
                 time_since > Duration::minutes(30)
@@ -143,7 +152,7 @@ impl AchievementRegistry {
                 session.calculate_bac(user) > 0.03 && user.weight < 170.0
             })],
         });
-        
+
         // Silver
         self.achievements.push(Achievement {
             title: "Two Pump Chump".to_string(),
@@ -179,17 +188,21 @@ impl AchievementRegistry {
             title: "Mixed Up Like Milkshake".to_string(),
             description: "Have two mixed drinks in one night".to_string(),
             tier: AchievementTier::Silver,
-            conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::MixedDrink, 2)],
+            conditions: vec![AchievementCondition::DrinkTypeCount(
+                DrinkType::MixedDrink,
+                2,
+            )],
         });
         self.achievements.push(Achievement {
-                title: "Slippery When Wet".to_string(),
-                description: "Hit a BAC of 0.10 – time to get a little sloppy!".to_string(),
-                tier: AchievementTier::Silver,
-                conditions: vec![AchievementCondition::MinBAC(0.10)],
+            title: "Slippery When Wet".to_string(),
+            description: "Hit a BAC of 0.10 – time to get a little sloppy!".to_string(),
+            tier: AchievementTier::Silver,
+            conditions: vec![AchievementCondition::MinBAC(0.10)],
         });
         self.achievements.push(Achievement {
             title: "Gender Bender".to_string(),
-            description: "Men over 200 lbs or women under 130 lbs hit BAC 0.08—flip the script!".to_string(),
+            description: "Men over 200 lbs or women under 130 lbs hit BAC 0.08—flip the script!"
+                .to_string(),
             tier: AchievementTier::Silver,
             conditions: vec![AchievementCondition::Custom(|session, user| {
                 let bac = session.calculate_bac(user);
@@ -200,7 +213,7 @@ impl AchievementRegistry {
                 }
             })],
         });
-        
+
         // Gold
         self.achievements.push(Achievement {
             title: "Break Dance".to_string(),
@@ -246,10 +259,14 @@ impl AchievementRegistry {
             description: "Space 3 drinks exactly 10-15 minutes apart—drunk clockwork!".to_string(),
             tier: AchievementTier::Silver,
             conditions: vec![AchievementCondition::Custom(|session, _| {
-                if session.events.len() < 3 { return false; }
+                if session.events.len() < 3 {
+                    return false;
+                }
                 let windows = session.events.windows(2);
                 windows.enumerate().all(|(i, window)| {
-                    if i >= 2 { return true; } // Only check first two gaps
+                    if i >= 2 {
+                        return true;
+                    } // Only check first two gaps
                     let gap = window[1].timestamp - window[0].timestamp;
                     gap >= Duration::minutes(10) && gap <= Duration::minutes(15)
                 })
@@ -257,13 +274,16 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "BAC-kward Ass".to_string(),
-            description: "BAC drops below 0.05 after peaking above 0.10—sober up, dumbas".to_string(),
+            description: "BAC drops below 0.05 after peaking above 0.10—sober up, dumbas"
+                .to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, user| {
                 let current_bac = session.calculate_bac(user);
                 let peak_bac = session.events.iter().fold(0.0, |acc: f32, event| {
                     let partial_session = DrinkingSession {
-                        events: session.events[..session.events.iter().position(|e| e == event).unwrap() + 1].to_vec(),
+                        events: session.events
+                            [..session.events.iter().position(|e| e == event).unwrap() + 1]
+                            .to_vec(),
                         ..session.clone()
                     };
                     let bac = partial_session.calculate_bac(user);
@@ -296,36 +316,37 @@ impl AchievementRegistry {
             title: "Swallow Don't Spit".to_string(),
             description: "Down five shots".to_string(),
             tier: AchievementTier::Gold,
-            conditions: vec![
-                AchievementCondition::DrinkTypeCount(DrinkType::Shot, 5),
-            ],
+            conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Shot, 5)],
         });
         self.achievements.push(Achievement {
             title: "Double Penetration".to_string(),
-            description: "Finish two different drink types simultaneously (within 20 minutes of each other)".to_string(),
+            description:
+                "Finish two different drink types simultaneously (within 20 minutes of each other)"
+                    .to_string(),
             tier: AchievementTier::Gold,
-            conditions: vec![
-                AchievementCondition::Custom(|session, _user| {
-                    let mut events = session.events.clone();
-                    events.sort_by(|a, b| a.timestamp.cmp(&b.timestamp));
-                    
-                    for i in 1..events.len() {
-                        if events[i].drink_type != events[i-1].drink_type {
-                            let duration = events[i].timestamp - events[i-1].timestamp;
-                            if duration <= Duration::minutes(20) {
-                                return true;
-                            }
+            conditions: vec![AchievementCondition::Custom(|session, _user| {
+                let mut events = session.events.clone();
+                events.sort_by(|a, b| a.timestamp.cmp(&b.timestamp));
+
+                for i in 1..events.len() {
+                    if events[i].drink_type != events[i - 1].drink_type {
+                        let duration = events[i].timestamp - events[i - 1].timestamp;
+                        if duration <= Duration::minutes(20) {
+                            return true;
                         }
                     }
-                    false
-                }),
-            ],
+                }
+                false
+            })],
         });
         self.achievements.push(Achievement {
             title: "Five Knuckle Shuffle".to_string(),
             description: "Down 5 drinks in 1hour — hand’s getting busy!".to_string(),
             tier: AchievementTier::Gold,
-            conditions: vec![AchievementCondition::DrinksWithinDuration(5, Duration::minutes(60))],
+            conditions: vec![AchievementCondition::DrinksWithinDuration(
+                5,
+                Duration::minutes(60),
+            )],
         });
         self.achievements.push(Achievement {
             title: "Tequila Titty-Twister".to_string(),
@@ -342,10 +363,12 @@ impl AchievementRegistry {
             tier: AchievementTier::Bronze,
             conditions: vec![AchievementCondition::Custom(|session, _user| {
                 let last_hour = chrono::Local::now() - chrono::Duration::hours(1);
-                let recent_events = session.events.iter()
+                let recent_events = session
+                    .events
+                    .iter()
                     .filter(|e| e.timestamp > last_hour)
                     .collect::<Vec<_>>();
-                
+
                 let mut drink_types = std::collections::HashSet::new();
                 for event in recent_events {
                     drink_types.insert(event.drink_type);
@@ -355,17 +378,20 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Hangover From Hell".to_string(),
-            description: "BAC over 0.12 with three different drinks and more than 7 total drinks".to_string(),
+            description: "BAC over 0.12 with three different drinks and more than 7 total drinks"
+                .to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, user| {
                 // Mix of high BAC, lots of different drink types, and late night
-                let unique_drinks = session.events.iter()
+                let unique_drinks = session
+                    .events
+                    .iter()
                     .map(|e| e.drink_type)
                     .collect::<std::collections::HashSet<_>>()
                     .len();
-                session.calculate_bac(user) >= 0.12 && 
-                unique_drinks >= 3 && 
-                session.total_drinks() >= 7            
+                session.calculate_bac(user) >= 0.12
+                    && unique_drinks >= 3
+                    && session.total_drinks() >= 7
             })],
         });
         self.achievements.push(Achievement {
@@ -384,19 +410,19 @@ impl AchievementRegistry {
             title: "Not Your First Rodeo".to_string(),
             description: "Start strong with 3 drinks in the first 20 minutes".to_string(),
             tier: AchievementTier::Gold,
-            conditions: vec![
-                AchievementCondition::Custom(|session, _user| {
-                    if let Some(start_time) = session.start_time {
-                        let early_drinks = session.events.iter()
-                            .filter(|e| e.timestamp - start_time <= Duration::minutes(20))
-                            .count();
-                        return early_drinks >= 3;
-                    }
-                    false
-                }),
-            ],
+            conditions: vec![AchievementCondition::Custom(|session, _user| {
+                if let Some(start_time) = session.start_time {
+                    let early_drinks = session
+                        .events
+                        .iter()
+                        .filter(|e| e.timestamp - start_time <= Duration::minutes(20))
+                        .count();
+                    return early_drinks >= 3;
+                }
+                false
+            })],
         });
-        
+
         // Platinum
         self.achievements.push(Achievement {
             title: "Broke Ass Bitch".to_string(),
@@ -454,15 +480,17 @@ impl AchievementRegistry {
                 let bac = session.calculate_bac(user);
                 let high_drink_count = session.total_drinks() >= 12;
                 let all_types_mixed = {
-                    let types = session.events.iter()
+                    let types = session
+                        .events
+                        .iter()
                         .map(|e| e.drink_type)
                         .collect::<std::collections::HashSet<_>>();
-                    types.contains(&DrinkType::Beer) && 
-                    types.contains(&DrinkType::Wine) && 
-                    types.contains(&DrinkType::Shot) && 
-                    types.contains(&DrinkType::MixedDrink)
+                    types.contains(&DrinkType::Beer)
+                        && types.contains(&DrinkType::Wine)
+                        && types.contains(&DrinkType::Shot)
+                        && types.contains(&DrinkType::MixedDrink)
                 };
-                
+
                 bac >= 0.18 && high_drink_count && all_types_mixed
             })],
         });
@@ -479,7 +507,8 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Deep Throat Champion".to_string(),
-            description: "Down 5 drinks within 30 minutes - your gag reflex is impressive".to_string(),
+            description: "Down 5 drinks within 30 minutes - your gag reflex is impressive"
+                .to_string(),
             tier: AchievementTier::Platinum,
             conditions: vec![
                 AchievementCondition::TotalDrinks(5),
@@ -508,28 +537,39 @@ impl AchievementRegistry {
             title: "Sloppy Speedster".to_string(),
             description: "8 drinks in 45 minutes—puke and rally, champ!".to_string(),
             tier: AchievementTier::Platinum,
-            conditions: vec![AchievementCondition::DrinksWithinDuration(8, Duration::minutes(45))],
+            conditions: vec![AchievementCondition::DrinksWithinDuration(
+                8,
+                Duration::minutes(45),
+            )],
         });
         self.achievements.push(Achievement {
             title: "Shotgun Shitshow".to_string(),
             description: "Alternate beer and shots 4 times—sloshed perfection!".to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, _| {
-                if session.events.len() < 4 { return false; }
+                if session.events.len() < 4 {
+                    return false;
+                }
                 let sequence = &session.events[..4];
                 sequence.iter().enumerate().all(|(i, event)| {
-                    if i % 2 == 0 { event.drink_type == DrinkType::Beer }
-                    else { event.drink_type == DrinkType::Shot }
+                    if i % 2 == 0 {
+                        event.drink_type == DrinkType::Beer
+                    } else {
+                        event.drink_type == DrinkType::Shot
+                    }
                 })
             })],
         });
         self.achievements.push(Achievement {
             title: "Drunk Unicorn".to_string(),
-            description: "BAC > 0.15 with exactly 7 drinks, no repeats—mythical madness!".to_string(),
+            description: "BAC > 0.15 with exactly 7 drinks, no repeats—mythical madness!"
+                .to_string(),
             tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::Custom(|session, user| {
                 let bac = session.calculate_bac(user);
-                let types: std::collections::HashSet<DrinkType> = session.events.iter()
+                let types: std::collections::HashSet<DrinkType> = session
+                    .events
+                    .iter()
                     .map(|e| e.drink_type)
                     .filter(|&dt| dt != DrinkType::None)
                     .collect();
@@ -538,19 +578,26 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Cocktail Clusterfuck".to_string(),
-            description: "5 mixed drinks, BAC over 0.12, under 45 mins—total trainwreck!".to_string(),
+            description: "5 mixed drinks, BAC over 0.12, under 45 mins—total trainwreck!"
+                .to_string(),
             tier: AchievementTier::Platinum,
             conditions: vec![AchievementCondition::Custom(|session, user| {
                 let bac = session.calculate_bac(user);
                 let mixed_count = session.count_by(DrinkType::MixedDrink);
-                let recent_five = session.events.iter().rev()
+                let recent_five = session
+                    .events
+                    .iter()
+                    .rev()
                     .filter(|e| e.drink_type == DrinkType::MixedDrink)
                     .take(5)
                     .collect::<Vec<_>>();
-                if recent_five.len() < 5 { return false; }
-                let time_span = recent_five.first().unwrap().timestamp - recent_five.last().unwrap().timestamp;
+                if recent_five.len() < 5 {
+                    return false;
+                }
+                let time_span =
+                    recent_five.first().unwrap().timestamp - recent_five.last().unwrap().timestamp;
                 mixed_count >= 5 && bac > 0.12 && time_span < Duration::minutes(45)
             })],
         });
-    }   
+    }
 }
