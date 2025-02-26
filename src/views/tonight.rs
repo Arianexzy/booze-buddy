@@ -1,11 +1,13 @@
 use crate::{
     components::{
         Drinks, DynamicBackground, EndNightSlider, Stats, TonightAchievements, WittyMessage,
-        WittyMessageBank,
     },
-    storage::storage::drink_history::{
-        get_current_bac, get_newly_unlocked_achievements, get_total_drinks,
-        has_active_session,
+    storage::{
+        models::WittyMessageBank,
+        storage::drink_history::{
+            get_current_bac, get_newly_unlocked_achievements, get_total_drinks,
+            has_active_session,
+        }
     },
 };
 use dioxus::prelude::*;
