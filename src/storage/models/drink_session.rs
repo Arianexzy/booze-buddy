@@ -1,6 +1,6 @@
 use super::{
-    Achievement, AchievementRegistry, DRINK_ALCOHOL_CONTENT, DrinkEvent, DrinkType, Gender,
-    METABOLISM_RATE, User,
+    ALCOHOL_CONVERSION_FACTOR, Achievement, AchievementRegistry, DRINK_ALCOHOL_CONTENT, DrinkEvent,
+    DrinkType, Gender, METABOLISM_RATE, User,
 };
 use chrono::{DateTime, Local};
 use serde::{Deserialize, Serialize};
@@ -68,7 +68,8 @@ impl DrinkingSession {
             let hours_since_drink =
                 now.signed_duration_since(event.timestamp).num_minutes() as f32 / 60.0;
 
-            let drink_bac = (DRINK_ALCOHOL_CONTENT * 5.14 / (user.weight * gender_constant))
+            let drink_bac = (DRINK_ALCOHOL_CONTENT * ALCOHOL_CONVERSION_FACTOR
+                / (user.weight * gender_constant))
                 - (METABOLISM_RATE * hours_since_drink);
 
             acc + drink_bac.max(0.0) // prevent negative BAC values
