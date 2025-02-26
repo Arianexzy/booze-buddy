@@ -55,7 +55,7 @@ pub fn get_current_bac() -> StorageResult<f32> {
     with_current_session(|session| session.calculate_bac(&user))
 }
 
-pub fn get_all_achievements() -> StorageResult<Vec<Achievement>> {
+pub fn get_achievements() -> StorageResult<Vec<Achievement>> {
     with_current_session(|session| session.achievements.clone())
 }
 

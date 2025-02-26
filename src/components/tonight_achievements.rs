@@ -1,6 +1,6 @@
 use crate::storage::{
     models::{Achievement, AchievementTier},
-    storage::drink_history::get_all_achievements,
+    storage::drink_history::get_achievements,
 };
 use dioxus::prelude::*;
 use lucide_dioxus::Trophy;
@@ -19,7 +19,7 @@ pub fn TonightAchievements(props: TonightAchievementsProps) -> Element {
         None => vec![],
     };
 
-    let all_achievements = get_all_achievements().unwrap_or(vec![]);
+    let all_achievements = get_achievements().unwrap_or(vec![]);
 
     rsx! {
         document::Link { rel: "stylesheet", href: TONIGHT_ACHIEVEMENTS_CSS }

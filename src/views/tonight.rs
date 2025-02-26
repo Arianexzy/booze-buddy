@@ -55,6 +55,7 @@ pub fn TonightView() -> Element {
                 EndNightSlider { on_end_night: reset_view }
             }
             if has_active_session {
+
             }
         }
     }
