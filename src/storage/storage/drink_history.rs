@@ -77,16 +77,6 @@ pub fn add_drink_by(drink_type: DrinkType) -> StorageResult<()> {
     })
 }
 
-pub fn remove_last(drink_type: DrinkType) -> StorageResult<()> {
-    with_history(|history| {
-        let session = history.ensure_active_session();
-        session.remove_last(drink_type);
-        save_data(history)
-            .map_err(|e| StorageError::SaveFailed(format!("remove_last failed: {}", e)))?;
-        Ok(())
-    })
-}
-
 pub fn end_current_session() -> StorageResult<()> {
     with_history(|history| {
         history.end_current_session();
@@ -97,7 +87,7 @@ pub fn end_current_session() -> StorageResult<()> {
 }
 
 pub fn get_past_sessions() -> StorageResult<Vec<DrinkingSession>> {
-    Ok(with_history(|history| { history.past_sessions() }))
+    Ok(with_history(|history| history.past_sessions()))
 }
 
 // PRIVATE HELPER FUNCTIONS

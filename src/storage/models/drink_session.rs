@@ -41,16 +41,6 @@ impl DrinkingSession {
         })
     }
 
-    pub fn remove_last(&mut self, drink_type: DrinkType) {
-        if let Some(index) = self
-            .events
-            .iter()
-            .rposition(|event| event.drink_type == drink_type)
-        {
-            self.events.remove(index);
-        }
-    }
-
     pub fn total_drinks(&self) -> i32 {
         self.events.len() as i32
     }
