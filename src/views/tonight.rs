@@ -54,6 +54,8 @@ pub fn TonightView() -> Element {
                 TonightAchievements { newly_unlocked_achievements }
                 EndNightSlider { on_end_night: reset_view }
             }
+            if has_active_session {
+            }
         }
     }
 }

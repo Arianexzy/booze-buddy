@@ -1,6 +1,5 @@
-/* Slider Container: Pill-shaped with a subtle border for definition */
 .slider-container {
-    position: fixed;
+    position: absolute;
     bottom: 85px;
     left: 50%;
     transform: translateX(-50%);
@@ -16,6 +15,7 @@
     justify-content: center;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.2); /* Adds subtle outline */
+    z-index: 10;
 }
 
 /* Range Input: Full-size and transparent to highlight track and thumb */

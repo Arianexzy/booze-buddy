@@ -3,10 +3,10 @@
     backdrop-filter: blur(4px);
     border-radius: 0.5rem;
     padding: 1rem;
-    padding-bottom: 60px; /* Space for slider button */
     margin-top: 1rem;
+    margin-bottom: 5.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    padding-bottom: 90px;
+    position: relative;
 }
 
 /* Header */
