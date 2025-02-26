@@ -441,9 +441,9 @@ impl AchievementRegistry {
         });
         self.achievements.push(Achievement {
             title: "Tequila Mockingbird".to_string(),
-            description: "Down five shots".to_string(),
+            description: "Sixth shot of the night, baby".to_string(),
             tier: AchievementTier::Platinum,
-            conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Shot, 5)],
+            conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Shot, 6)],
         });
         self.achievements.push(Achievement {
             title: "Bottom of the Bottle".to_string(),
