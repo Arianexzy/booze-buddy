@@ -20,6 +20,10 @@
     animation: textBounce3 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);    
 }
 
+.pulse {
+    animation: neonPulse 3s infinite ease-in-out; 
+}
+
 .witty-message {
     font-size: 1.2rem;
     font-weight: 600;
@@ -93,4 +97,16 @@
     60% { transform: scale(1.1); filter: blur(0); }
     80% { transform: scale(0.95); }
     100% { transform: scale(1); }
+}
+
+@keyframes neonPulse {
+    0% {
+        box-shadow: 0 0 10px currentColor;
+    }
+    50% {
+        box-shadow: 0 0 15px currentColor, 0 0 25px rgba(255, 255, 255, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 10px currentColor;
+    }
 }
