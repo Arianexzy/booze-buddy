@@ -1,137 +1,274 @@
+/* Basic layout and styling for the settings view */
+.view-header {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--selected-color);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(56, 239, 237, 0.6);
+  letter-spacing: 2px;
+  padding-top: 10px;
+}
+
+/* Container for settings form */
 .settings-form {
-    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-    border: 2px solid #ff3e3e;
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 500px;
-    margin: 20px auto;
-    box-shadow: 0 0 15px rgba(255, 62, 62, 0.3);
-    position: relative;
+  max-width: 600px;
+  margin: 0 auto 4rem;
+  padding: 1.5rem;
+  background-color: rgba(30, 41, 59, 0.7);
+  border-radius: 0.5rem;
+  border: 1px solid var(--button-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
+/* Cyberpunk accent line */
 .settings-form::before {
-    content: "🍺 DRINK STATS 🍺";
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #1a1a1a;
-    padding: 0 10px;
-    color: #ff3e3e;
-    font-family: 'Arial Black', sans-serif;
-    font-size: 1.2em;
-    text-transform: uppercase;
-    white-space: nowrap;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--selected-color);
+  opacity: 0.7;
 }
 
+/* Scanline animation for futuristic effect */
+.settings-form::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--selected-color), transparent);
+  opacity: 0.3;
+  animation: scanline 3s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(500%);
+  }
+}
+
+/* Form input groups */
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 1.5rem;
+  position: relative;
 }
 
+/* Input labels with cyberpunk styling */
 .form-group label {
-    display: block;
-    color: #ff3e3e;
-    font-size: 1.2em;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--selected-color);
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 5px rgba(56, 239, 237, 0.4);
 }
 
-.form-input,
-.form-select {
-    width: 100%;
-    padding: 12px;
-    background: #333;
-    border: 2px solid #ff3e3e;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 1.1em;
-    transition: all 0.3s ease;
+/* Form inputs with futuristic styling */
+.form-input, .form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: rgba(20, 30, 45, 0.7);
+  border: 1px solid var(--button-border);
+  border-radius: 0.3rem;
+  color: var(--text);
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-.form-input:focus,
-.form-select:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(255, 62, 62, 0.5);
-    transform: scale(1.02);
+/* Focus states for inputs */
+.form-input:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--selected-color);
+  box-shadow: 0 0 0 2px rgba(56, 239, 237, 0.2);
 }
 
-.form-input::placeholder {
-    color: #666;
+/* Number input arrows styling */
+.form-input[type="number"]::-webkit-inner-spin-button,
+.form-input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+  background: var(--selected-color-transparent);
+  border-radius: 2px;
+  height: 1.5rem;
 }
 
-.form-select option {
-    background: #333;
-    color: #fff;
-}
-
+/* Submit button with futuristic styling */
 .form-submit {
-    width: 100%;
-    padding: 15px;
-    background: #ff3e3e;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 1.2em;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  margin-top: 2rem;
+  background: linear-gradient(90deg, rgba(56, 239, 237, 0.1), rgba(56, 239, 237, 0.3));
+  border: 1px solid var(--selected-color);
+  border-radius: 0.3rem;
+  color: var(--selected-color);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Button hover effects */
 .form-submit:hover {
-    background: #ff5555;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 62, 62, 0.4);
+  background: linear-gradient(90deg, rgba(56, 239, 237, 0.3), rgba(56, 239, 237, 0.5));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* Button active effects */
 .form-submit:active {
-    transform: translateY(1px);
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Easter egg - random drunk messages on hover */
+/* Button glow effect */
+.form-submit::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(56, 239, 237, 0.4) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
 .form-submit:hover::after {
-    content: attr(data-drunk-message);
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #ff3e3e;
-    font-size: 0.9em;
-    white-space: nowrap;
-    animation: wobble 0.5s ease infinite;
+  opacity: 0.8;
 }
 
-/* Drunk animation */
-@keyframes wobble {
-    0% { transform: translateX(-50%) rotate(0deg); }
-    25% { transform: translateX(-53%) rotate(-5deg); }
-    75% { transform: translateX(-47%) rotate(5deg); }
-    100% { transform: translateX(-50%) rotate(0deg); }
+/* Info text styling */
+.info, .bac-info {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  padding: 1rem 1.5rem;
+  background-color: rgba(30, 41, 59, 0.5);
+  border-radius: 0.5rem;
+  border-left: 3px solid var(--selected-color);
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  position: relative;
 }
 
-/* Add some fun to the form inputs */
-.form-input:invalid {
-    animation: shake 0.5s linear;
+/* BAC info specific styling */
+.bac-info {
+  margin-top: 2.5rem;
+  white-space: pre-line;
+  background-color: rgba(20, 30, 45, 0.6);
+  border: 1px solid rgba(56, 239, 237, 0.2);
 }
 
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-10px); }
-    75% { transform: translateX(10px); }
+.bac-info::before {
+  content: "BAC Calculation";
+  position: absolute;
+  top: -1rem;
+  left: 1rem;
+  background-color: rgba(20, 30, 45, 0.9);
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--selected-color);
+  letter-spacing: 1px;
+  border: 1px solid rgba(56, 239, 237, 0.3);
 }
 
-/* Responsive design for mobile drunks */
-@media (max-width: 600px) {
-    .settings-form {
-        margin: 20px 10px;
-        padding: 15px;
-    }
-    
-    .form-submit {
-        font-size: 1.1em;
-        padding: 12px;
-    }
+/* Highlight code snippets in the BAC info */
+.bac-info code {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.2rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--selected-color);
+}
+
+/* Highlight important BAC values */
+.bac-info strong {
+  color: var(--selected-color);
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .settings-form,
+  .info,
+  .bac-info {
+    padding: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  
+  .form-group label {
+    font-size: 0.9rem;
+  }
+  
+  .form-input, 
+  .form-select {
+    padding: 0.7rem 0.8rem;
+    font-size: 0.95rem;
+  }
+  
+  .form-submit {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Formatting the code block in BAC info */
+.bac-info pre {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.8rem;
+  border-radius: 0.3rem;
+  overflow-x: auto;
+  margin: 0.8rem 0;
+  border-left: 2px solid var(--selected-color);
+}
+
+/* Add a tech pulse to inputs */
+@keyframes techPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(56, 239, 237, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 5px rgba(56, 239, 237, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(56, 239, 237, 0);
+  }
+}
+
+.form-input:focus, 
+.form-select:focus {
+  animation: techPulse 1.5s infinite;
+}
+
+/* Custom select dropdown arrow */
+.form-select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--selected-color) 50%),
+                    linear-gradient(135deg, var(--selected-color) 50%, transparent 50%);
+  background-position: calc(100% - 20px) calc(1em + 2px),
+                       calc(100% - 15px) calc(1em + 2px);
+  background-size: 5px 5px,
+                   5px 5px;
+  background-repeat: no-repeat;
 }
