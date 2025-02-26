@@ -36,10 +36,11 @@ impl DrinkingHistory {
         }
     }
 
-    pub fn past_sessions(&self) -> Vec<&DrinkingSession> {
+    pub fn past_sessions(&self) -> Vec<DrinkingSession> {
         self.sessions
             .iter()
             .filter(|session| !session.is_active)
+            .cloned()
             .collect()
     }
 }

@@ -10,6 +10,8 @@ pub struct DrinkingSession {
     pub events: Vec<DrinkEvent>,
     pub achievements: Vec<Achievement>,
     pub is_active: bool,
+    pub current_bac: f32,
+    pub max_bac: f32,
     pub start_time: Option<DateTime<Local>>,
     pub end_time: Option<DateTime<Local>>,
 }
@@ -53,7 +55,7 @@ impl DrinkingSession {
         self.events.len() as i32
     }
 
-    pub fn calculate_bac(&self, user: &User) -> f32 {
+    pub fn calculate_bac(&mut self, user: &User) -> f32 {
         let now = Local::now();
 
         let gender_constant = match user.gender {
@@ -62,7 +64,7 @@ impl DrinkingSession {
             Gender::Other => 0.615,
         };
 
-        self.events.iter().fold(0.0, |acc, event| {
+        let calculated_bac = self.events.iter().fold(0.0, |acc, event| {
             let hours_since_drink =
                 now.signed_duration_since(event.timestamp).num_minutes() as f32 / 60.0;
 
@@ -70,7 +72,12 @@ impl DrinkingSession {
                 - (METABOLISM_RATE * hours_since_drink);
 
             acc + drink_bac.max(0.0) // prevent negative BAC values
-        })
+        });
+
+        self.current_bac = calculated_bac;
+        self.max_bac = calculated_bac.max(self.max_bac);
+
+        calculated_bac
     }
 
     pub fn check_achievements(&mut self, user: &User) -> Vec<Achievement> {

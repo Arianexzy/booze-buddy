@@ -5,9 +5,8 @@ use crate::{
     storage::{
         models::WittyMessageBank,
         storage::drink_history::{
-            get_current_bac, get_newly_unlocked_achievements, get_total_drinks,
-            has_active_session,
-        }
+            get_current_bac, get_newly_unlocked_achievements, get_total_drinks, has_active_session,
+        },
     },
 };
 use dioxus::prelude::*;

@@ -19,7 +19,7 @@ pub fn WittyMessage(props: WittyMessageProps) -> Element {
 
     let rotation_counter = *&*props.animation_trigger.read_unchecked();
     let dynamic_class = format!("witty-message dynamic-{}", rotation_counter % 3);
-    
+
     let container_class = match has_active_session() {
         true => "witty-message-container",
         false => "witty-message-container pulse",

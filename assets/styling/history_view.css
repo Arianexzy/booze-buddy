@@ -1,0 +1,367 @@
+.sessions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; 
+  padding: 0 1.5rem 6rem; 
+  max-width: 650px; 
+  margin: 0 auto;
+}
+
+/* Individual session card styling */
+.session-card {
+  background-color: rgba(30, 41, 59, 0.75); 
+  border-radius: 0.75rem; 
+  border: 2px solid var(--button-border); 
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4); 
+  padding: 1.5rem; 
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.session-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  border-color: var(--selected-color-transparent);
+}
+
+/* Cyberpunk accent line */
+.session-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px; 
+  height: 100%;
+  background: var(--selected-color);
+  opacity: 0.8;
+}
+
+/* Enhanced border effects - Animated glowing border */
+.session-card {
+  --border-width: 2px;
+  --border-angle: 0deg;
+  background-image: conic-gradient(
+    from var(--border-angle),
+    rgba(30, 41, 59, 0.75) 0%,
+    rgba(30, 41, 59, 0.75) 50%,
+    rgba(30, 41, 59, 0.75) 100%
+  );
+  border: none;
+  background-size: 200% 200%;
+  background-position: 0 0;
+  animation: border-rotate 4s linear infinite;
+}
+
+.session-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.75rem;
+  padding: var(--border-width);
+  background: conic-gradient(
+    from var(--border-angle),
+    transparent 20%,
+    var(--selected-color) 40%,
+    rgba(56, 239, 237, 0.5) 60%,
+    transparent 80%
+  );
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: border-rotate 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes border-rotate {
+  0% {
+    --border-angle: 0deg;
+  }
+  100% {
+    --border-angle: 360deg;
+  }
+}
+
+/* Additional scanline animation */
+.session-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--selected-color);
+  opacity: 0.8;
+  z-index: 1;
+}
+
+.session-card .scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px; /* Thicker scanline */
+  background: linear-gradient(90deg, transparent, var(--selected-color), transparent);
+  opacity: 0.4;
+  animation: scanline 3s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(800%); 
+  }
+}
+
+/* Session date styling */
+.session-date {
+  font-size: 1.6rem; 
+  font-weight: 700;
+  color: var(--selected-color);
+  margin-bottom: 1rem; 
+  letter-spacing: 1.5px; 
+  text-shadow: 0 0 8px rgba(56, 239, 237, 0.5); 
+  border-bottom: 2px solid rgba(56, 239, 237, 0.3); 
+  padding-bottom: 0.75rem; 
+  position: relative; 
+}
+
+/* Data chip effect for session date */
+.session-date::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  width: 20px;
+  height: 2px;
+  background: var(--selected-color);
+  box-shadow: 0 0 8px var(--selected-color);
+}
+
+/* Enhanced Stats section */
+.session-stats {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.25rem 0;
+  padding: 0;
+  position: relative;
+}
+
+.session-stats::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    rgba(56, 239, 237, 0.1), 
+    rgba(20, 30, 45, 0.3),
+    rgba(56, 239, 237, 0.1)
+  );
+  border-radius: 8px;
+  z-index: -1;
+}
+
+/* Individual stat items */
+.session-stats span {
+  font-size: 1.1rem; 
+  font-weight: 600; 
+  color: var(--text);
+  padding: 0.8rem 1rem; 
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 6px;
+  background: rgba(20, 30, 45, 0.6);
+  border: 1px solid rgba(56, 239, 237, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  margin: 0 0.4rem;
+  transition: all 0.3s ease;
+}
+
+.session-stats span:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-color: rgba(56, 239, 237, 0.3);
+}
+
+/* Label and value separation for stats */
+.session-stats span::before {
+  content: attr(data-label);
+  display: block;
+  font-size: 0.7rem;
+  color: var(--selected-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
+  opacity: 0.8;
+}
+
+/* Value styling for stats */
+.session-stats span strong {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 0 8px rgba(56, 239, 237, 0.6);
+}
+
+/* BAC value with colored indicator */
+.session-stats span[data-bac] strong {
+  position: relative;
+  padding-left: 0.2rem;
+}
+
+/* Drink types section */
+.drink-types {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem; 
+  background-color: rgba(20, 30, 45, 0.6); 
+  border-radius: 0.5rem;
+  padding: 1rem 1.2rem; 
+  border: 1px solid rgba(56, 239, 237, 0.2); 
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25); 
+}
+
+.drink-type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem; 
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  transition: all 0.2s ease;
+}
+
+.drink-type:hover {
+  background-color: rgba(56, 239, 237, 0.1);
+}
+
+.drink-icon {
+  font-size: 1.8rem; 
+  opacity: 0.95;
+  filter: drop-shadow(0 0 3px rgba(56, 239, 237, 0.4)); 
+}
+
+.drink-value {
+  font-size: 1.2rem; 
+  font-weight: 700; 
+  color: var(--selected-color);
+  text-shadow: 0 0 4px rgba(56, 239, 237, 0.4);
+}
+
+/* Achievements section */
+.achievements-section {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(20, 30, 45, 0.6);
+  border-radius: 0.5rem;
+  padding: 1rem 1.2rem; 
+  border: 1px solid rgba(56, 239, 237, 0.2);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+.achievement-tier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem; 
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  transition: all 0.2s ease;
+}
+
+.achievement-tier:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tier-icon {
+  font-size: 1.6rem; 
+  opacity: 0.95;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3)); 
+}
+
+/* Achievement tier specific colors */
+.achievement-tier:nth-child(1) .tier-icon {
+  color: #cd7f32; /* Bronze */
+  filter: drop-shadow(0 0 3px rgba(205, 127, 50, 0.5));
+}
+
+.achievement-tier:nth-child(2) .tier-icon {
+  color: #c0c0c0; /* Silver */
+  filter: drop-shadow(0 0 3px rgba(192, 192, 192, 0.5));
+}
+
+.achievement-tier:nth-child(3) .tier-icon {
+  color: #ffd700; /* Gold */
+  filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.5));
+}
+
+.achievement-tier:nth-child(4) .tier-icon {
+  color: #e5e4e2; /* Platinum */
+  filter: drop-shadow(0 0 3px rgba(229, 228, 226, 0.5));
+}
+
+.achievement-tier span:not(.tier-icon) {
+  font-size: 1.1rem; 
+  font-weight: 700; 
+  color: var(--text);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .sessions-container {
+    padding: 0 0.75rem 5rem;
+  }
+  
+  .session-card {
+    padding: 1.2rem;
+  }
+  
+  .drink-types, .achievements-section {
+    padding: 0.75rem;
+  }
+  
+  .drink-icon, .tier-icon {
+    font-size: 1.4rem;
+  }
+  
+  .drink-value, .achievement-tier span:not(.tier-icon) {
+    font-size: 1rem;
+  }
+}
+
+/* Total drink count at the top */
+.view-header + span {
+  display: block;
+  text-align: center;
+  margin-bottom: 2rem; 
+  color: var(--selected-color);
+  font-size: 1.3rem; 
+  font-weight: 600;
+  letter-spacing: 1.5px; 
+  text-shadow: 0 0 5px rgba(56, 239, 237, 0.4); 
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(56, 239, 237, 0.1), 
+    transparent
+  );
+  padding: 0.5rem 0;
+}
+
+.view-header + span::before {
+  content: "Total Sessions: ";
+  color: var(--text);
+  opacity: 0.8;
+}
+
+
+

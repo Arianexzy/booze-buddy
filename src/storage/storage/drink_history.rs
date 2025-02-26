@@ -97,9 +97,7 @@ pub fn end_current_session() -> StorageResult<()> {
 }
 
 pub fn get_past_sessions() -> StorageResult<Vec<DrinkingSession>> {
-    Ok(with_history(|history| {
-        history.past_sessions().into_iter().cloned().collect()
-    }))
+    Ok(with_history(|history| { history.past_sessions() }))
 }
 
 // PRIVATE HELPER FUNCTIONS

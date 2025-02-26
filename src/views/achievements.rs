@@ -7,15 +7,15 @@ const ACHIEVEMENTS_VIEW_CSS: Asset = asset!("assets/styling/achievements_view.cs
 #[component]
 pub fn AchievementsView() -> Element {
     let registry = AchievementRegistry::global();
-    
+
     let tiers = [
         ("Bronze Tier", AchievementTier::Bronze),
         ("Silver Tier", AchievementTier::Silver),
         ("Gold Tier", AchievementTier::Gold),
         ("Platinum Tier", AchievementTier::Platinum),
     ];
-    
-    rsx!{
+
+    rsx! {
         document::Link { rel: "stylesheet", href: ACHIEVEMENTS_VIEW_CSS }
         h1 { class: "view-header", "Achievements" }
         div {

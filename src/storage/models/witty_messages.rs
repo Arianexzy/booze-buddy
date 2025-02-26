@@ -27,7 +27,7 @@ impl WittyMessageBank {
                 "Send nudes!",
                 "You're not a mess, you're a debaucherous masterpiece",
                 "You can't handle the proof!",
-                "The first rule of Drink Club: you don't remember Drink Club" ,
+                "The first rule of Drink Club: you don't remember Drink Club",
                 "You’re not an alcoholic, you’re just collecting experiences",
                 "You’re not drunk, you’re just emotionally hydrated",
                 "You’re not drunk, you’re just somehow better at everything",

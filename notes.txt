@@ -1,5 +1,4 @@
 - Achievements:
-    - stack the achievements as they accumulate in the Tonight view
     - in the Achievement view, keep track of what achievements have been made and how many times
     - Put in a peak BAC
     
@@ -13,11 +12,13 @@
 
 - Fix the gray bar at the top that other apps dont havev
 
-- Put the Total drinks and BAC stats on a single line
-
-- Fix the witty messages.  Many many more need to be added and/or adjusted. 
-
 - Need to fix the components loading before the CSS does. 
+
+- Get rid of hard coded JSON file path
+
+- Fix bug where Break the Seal achievement keeps reappearing
+
+- Review and remove any dead CSS
 
 COMMANDS:
 adb install /home/kss/coding/booze-buddy/target/dx/booze-buddy/debug/android/app/app/build/outputs/apk/debug/app-debug.apk

@@ -29,11 +29,17 @@ pub struct Achievement {
     pub conditions: Vec<AchievementCondition>,
 }
 
+#[derive(Debug)]
+pub struct AchievementDisplay {
+    pub tier_label: &'static str,
+    pub tier_icon: &'static str,
+}
+
 impl Achievement {
     pub fn is_achieved(&self, session: &DrinkingSession, user: &User) -> bool {
         self.conditions.iter().all(|cond| match cond {
             AchievementCondition::TotalDrinks(drinks) => session.total_drinks() >= *drinks,
-            AchievementCondition::MinBAC(bac) => session.calculate_bac(user) >= *bac,
+            AchievementCondition::MinBAC(bac) => session.current_bac >= *bac,
             AchievementCondition::DrinkTypeCount(drink_type, count) => {
                 session.count_by(*drink_type) >= *count
             }
@@ -46,6 +52,27 @@ impl Achievement {
             }
             AchievementCondition::Custom(func) => func(session, user),
         })
+    }
+
+    pub fn display(tier: AchievementTier) -> AchievementDisplay {
+        match tier {
+            AchievementTier::Bronze => AchievementDisplay {
+                tier_label: "bronze",
+                tier_icon: "🥉",
+            },
+            AchievementTier::Silver => AchievementDisplay {
+                tier_label: "silver",
+                tier_icon: "🥈",
+            },
+            AchievementTier::Gold => AchievementDisplay {
+                tier_label: "gold",
+                tier_icon: "🥇",
+            },
+            AchievementTier::Platinum => AchievementDisplay {
+                tier_label: "platinum",
+                tier_icon: "🏆",
+            },
+        }
     }
 }
 
@@ -149,7 +176,7 @@ impl AchievementRegistry {
             description: "Feel buzzed (BAC > 0.03) under 170 lbs—weak sauce!".to_string(),
             tier: AchievementTier::Bronze,
             conditions: vec![AchievementCondition::Custom(|session, user| {
-                session.calculate_bac(user) > 0.03 && user.weight < 170.0
+                session.current_bac > 0.03 && user.weight < 170.0
             })],
         });
 
@@ -205,7 +232,7 @@ impl AchievementRegistry {
                 .to_string(),
             tier: AchievementTier::Silver,
             conditions: vec![AchievementCondition::Custom(|session, user| {
-                let bac = session.calculate_bac(user);
+                let bac = session.current_bac;
                 match user.gender {
                     Gender::Male => bac >= 0.08 && user.weight > 200.0,
                     Gender::Female => bac >= 0.08 && user.weight < 130.0,
@@ -277,8 +304,8 @@ impl AchievementRegistry {
             title: "BAC-kward Ass".to_string(),
             description: "BAC drops below 0.05 after peaking above 0.10".to_string(),
             tier: AchievementTier::Gold,
-            conditions: vec![AchievementCondition::Custom(|session, user| {
-                let current_bac = session.calculate_bac(user);
+            conditions: vec![AchievementCondition::Custom(|session, _| {
+                let current_bac = session.current_bac;
                 let peak_bac = session.events.iter().fold(0.0, |acc: f32, event| {
                     let partial_session = DrinkingSession {
                         events: session.events
@@ -286,7 +313,7 @@ impl AchievementRegistry {
                             .to_vec(),
                         ..session.clone()
                     };
-                    let bac = partial_session.calculate_bac(user);
+                    let bac = partial_session.current_bac;
                     acc.max(bac)
                 });
                 current_bac < 0.05 && peak_bac > 0.10
@@ -378,7 +405,7 @@ impl AchievementRegistry {
             title: "Hangover From Hell".to_string(),
             description: "BAC over 0.12, three different drinks and more than 7 total".to_string(),
             tier: AchievementTier::Gold,
-            conditions: vec![AchievementCondition::Custom(|session, user| {
+            conditions: vec![AchievementCondition::Custom(|session, _| {
                 // Mix of high BAC, lots of different drink types, and late night
                 let unique_drinks = session
                     .events
@@ -386,9 +413,7 @@ impl AchievementRegistry {
                     .map(|e| e.drink_type)
                     .collect::<std::collections::HashSet<_>>()
                     .len();
-                session.calculate_bac(user) >= 0.12
-                    && unique_drinks >= 3
-                    && session.total_drinks() >= 7
+                session.current_bac >= 0.12 && unique_drinks >= 3 && session.total_drinks() >= 7
             })],
         });
         self.achievements.push(Achievement {
@@ -467,8 +492,8 @@ impl AchievementRegistry {
             title: "Tomorrow is Cancelled".to_string(),
             description: "More than 12 drinks and at least one of each drink type".to_string(),
             tier: AchievementTier::Platinum,
-            conditions: vec![AchievementCondition::Custom(|session, user| {
-                let bac = session.calculate_bac(user);
+            conditions: vec![AchievementCondition::Custom(|session, _| {
+                let bac = session.current_bac;
                 let high_drink_count = session.total_drinks() >= 12;
                 let all_types_mixed = {
                     let types = session
@@ -555,8 +580,8 @@ impl AchievementRegistry {
             description: "BAC > 0.15 with exactly 7 drinks, no repeats—mythical madness!"
                 .to_string(),
             tier: AchievementTier::Platinum,
-            conditions: vec![AchievementCondition::Custom(|session, user| {
-                let bac = session.calculate_bac(user);
+            conditions: vec![AchievementCondition::Custom(|session, _| {
+                let bac = session.current_bac;
                 let types: std::collections::HashSet<DrinkType> = session
                     .events
                     .iter()
@@ -571,8 +596,8 @@ impl AchievementRegistry {
             description: "5 mixed drinks, BAC over 0.12, under 45 mins—total trainwreck!"
                 .to_string(),
             tier: AchievementTier::Platinum,
-            conditions: vec![AchievementCondition::Custom(|session, user| {
-                let bac = session.calculate_bac(user);
+            conditions: vec![AchievementCondition::Custom(|session, _| {
+                let bac = session.current_bac;
                 let mixed_count = session.count_by(DrinkType::MixedDrink);
                 let recent_five = session
                     .events
@@ -593,17 +618,13 @@ impl AchievementRegistry {
             title: "Tom Hanks".to_string(),
             description: "Hit a BAC of 0.35 – you are the captain now ".to_string(),
             tier: AchievementTier::Platinum,
-            conditions: vec![
-                AchievementCondition::MinBAC(0.35),
-            ],
+            conditions: vec![AchievementCondition::MinBAC(0.35)],
         });
         self.achievements.push(Achievement {
             title: "Donald Trump".to_string(),
             description: "Hit a BAC of 0.40 – you are where you shouldn't be ".to_string(),
             tier: AchievementTier::Platinum,
-            conditions: vec![
-                AchievementCondition::MinBAC(0.40),
-            ],
+            conditions: vec![AchievementCondition::MinBAC(0.40)],
         });
     }
 }

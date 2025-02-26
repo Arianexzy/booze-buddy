@@ -1,7 +1,4 @@
-use crate::storage::{
-    models::{Achievement, AchievementTier},
-    storage::drink_history::get_achievements,
-};
+use crate::storage::{models::Achievement, storage::drink_history::get_achievements};
 use dioxus::prelude::*;
 use lucide_dioxus::Trophy;
 
@@ -36,12 +33,11 @@ pub fn TonightAchievements(props: TonightAchievementsProps) -> Element {
                     all_achievements
                         .iter()
                         .map(|achievement| {
-                            let (tier_class, icon) = match achievement.tier {
-                                AchievementTier::Bronze => ("bronze", "🥉"),
-                                AchievementTier::Silver => ("silver", "🥈"),
-                                AchievementTier::Gold => ("gold", "🥇"),
-                                AchievementTier::Platinum => ("platinum", "🏆"),
-                            };
+                            let achievement_display = Achievement::display(achievement.tier);
+                            let (tier_class, icon) = (
+                                achievement_display.tier_label,
+                                achievement_display.tier_icon,
+                            );
                             let tier_class = match unlocked_achievements.contains(&achievement) {
                                 true => format!("{tier_class} new"),
                                 false => format!("{tier_class}"),
