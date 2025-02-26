@@ -524,22 +524,6 @@ impl AchievementRegistry {
             ],
         });
         self.achievements.push(Achievement {
-            title: "Tom Hanks".to_string(),
-            description: "Hit a BAC of 0.35 – you are the captain now ".to_string(),
-            tier: AchievementTier::Platinum,
-            conditions: vec![
-                AchievementCondition::MinBAC(0.35),
-            ],
-        });
-        self.achievements.push(Achievement {
-            title: "Donald Trump".to_string(),
-            description: "Hit a BAC of 0.40 – you are where you shouldn't be ".to_string(),
-            tier: AchievementTier::Platinum,
-            conditions: vec![
-                AchievementCondition::MinBAC(0.40),
-            ],
-        });
-        self.achievements.push(Achievement {
             title: "Sloppy Speedster".to_string(),
             description: "8 drinks in 45 minutes—puke and rally, champ!".to_string(),
             tier: AchievementTier::Platinum,
@@ -604,6 +588,22 @@ impl AchievementRegistry {
                     recent_five.first().unwrap().timestamp - recent_five.last().unwrap().timestamp;
                 mixed_count >= 5 && bac > 0.12 && time_span < Duration::minutes(45)
             })],
+        });
+        self.achievements.push(Achievement {
+            title: "Tom Hanks".to_string(),
+            description: "Hit a BAC of 0.35 – you are the captain now ".to_string(),
+            tier: AchievementTier::Platinum,
+            conditions: vec![
+                AchievementCondition::MinBAC(0.35),
+            ],
+        });
+        self.achievements.push(Achievement {
+            title: "Donald Trump".to_string(),
+            description: "Hit a BAC of 0.40 – you are where you shouldn't be ".to_string(),
+            tier: AchievementTier::Platinum,
+            conditions: vec![
+                AchievementCondition::MinBAC(0.40),
+            ],
         });
     }
 }
