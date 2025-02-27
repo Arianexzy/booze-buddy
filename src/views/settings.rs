@@ -25,8 +25,6 @@ pub fn SettingsView() -> Element {
     rsx! {
         h1 { class: "view-header", "Settings" }
 
-        p { class: "info", "Questions below are to estimate blood alcohol content (BAC). It's just a rough estimate for entertainment purposes."}
-
         form { class: "settings-form", onsubmit: update_user,
 
             div { class: "form-group",
@@ -64,9 +62,9 @@ pub fn SettingsView() -> Element {
             }
 
             button { class: "form-submit", r#type: "submit", "Save Settings" }
-        }
+        }        
+        p { class: "info", "Questions above are to estimate blood alcohol content (BAC). It's just a rough estimate for entertainment purposes."}
 
-        // Replace your existing p tag with class "bac-info" with this:
         div { class: "bac-info",
             h3 { "How We Calculate Your BAC" }
 
