@@ -1,3 +1,4 @@
+/* Slider Container: Dark, glass-like with neon border */
 .slider-container {
     position: absolute;
     bottom: 85px;
@@ -5,7 +6,7 @@
     transform: translateX(-50%);
     width: 300px;
     height: 60px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(10, 10, 20, 0.3); /* Dark, semi-transparent */
     border-radius: 30px;
     padding: 5px;
     backdrop-filter: blur(10px);
@@ -14,11 +15,11 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Adds subtle outline */
+    border: 1px solid rgba(56, 239, 237, 0.5); /* Neon cyan border */
     z-index: 10;
 }
 
-/* Range Input: Full-size and transparent to highlight track and thumb */
+/* Range Input: Full-size, transparent, flipped for right-to-left */
 input[type="range"] {
     appearance: none;
     -webkit-appearance: none;
@@ -31,88 +32,91 @@ input[type="range"] {
     position: relative;
     cursor: grab;
     z-index: 1;
+    transform: scaleX(-1); /* Flip horizontally for right-to-left */
 }
 
 input[type="range"]:focus {
     outline: none;
 }
 
-/* Track: Dark and rounded for contrast */
+/* Track: Dark with neon glow */
 input[type="range"]::-webkit-slider-runnable-track {
     appearance: none;
     -webkit-appearance: none;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 25px;
     cursor: grab;
+    box-shadow: 0 0 10px rgba(56, 239, 237, 0.5); /* Neon cyan glow */
 }
 
 input[type="range"]::-moz-range-track {
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 25px;
     cursor: grab;
+    box-shadow: 0 0 10px rgba(56, 239, 237, 0.5); /* Neon cyan glow */
 }
 
-/* Thumb: White with a bold chevron arrow, smooth transitions */
+/* Thumb: Neon cyan with reversed chevron, smooth transitions */
 input[type="range"]::-webkit-slider-thumb {
     appearance: none;
     -webkit-appearance: none;
     width: 50px;
     height: 100%;
-    background: white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="%23333" stroke-width="2" fill="none"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>') no-repeat center center;
+    background: #38efed url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="%23000" stroke-width="2" fill="none"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>') no-repeat center center; /* Right-pointing chevron */
     background-size: 70% 70%;
     border-radius: 25px;
     cursor: grab;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 10px rgba(56, 239, 237, 0.7); /* Neon glow */
     transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
 }
 
 input[type="range"]::-moz-range-thumb {
     width: 50px;
     height: 100%;
-    background: white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="%23333" stroke-width="2" fill="none"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>') no-repeat center center;
+    background: #38efed url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="%23000" stroke-width="2" fill="none"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>') no-repeat center center; /* Right-pointing chevron */
     background-size: 70% 70%;
     border-radius: 25px;
     cursor: grab;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 10px rgba(56, 239, 237, 0.7); /* Neon glow */
     transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
 }
 
-/* Thumb Active State: Glow, scale, and pulse for engagement */
+/* Thumb Active State: Neon red with pulse */
 input[type="range"]::-webkit-slider-thumb:active {
-    background: white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="%23007bff" stroke-width="2" fill="none"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>') no-repeat center center;
+    background: #ff6b6b url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="%23000" stroke-width="2" fill="none"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>') no-repeat center center;
     background-size: 70% 70%;
     transform: scale(1.1);
-    box-shadow: 0 0 12px 2px rgba(0, 123, 255, 0.7); /* Stronger glow */
-    animation: pulse 0.5s infinite; /* Subtle pulse effect */
+    box-shadow: 0 0 15px rgba(255, 107, 107, 0.7); /* Stronger neon red glow */
+    animation: pulse 0.5s infinite;
 }
 
 input[type="range"]::-moz-range-thumb:active {
-    background: white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="%23007bff" stroke-width="2" fill="none"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>') no-repeat center center;
+    background: #ff6b6b url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="%23000" stroke-width="2" fill="none"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>') no-repeat center center;
     background-size: 70% 70%;
     transform: scale(1.1);
-    box-shadow: 0 0 12px 2px rgba(0, 123, 255, 0.7); /* Stronger glow */
-    animation: pulse 0.5s infinite; /* Subtle pulse effect */
+    box-shadow: 0 0 15px rgba(255, 107, 107, 0.7); /* Stronger neon red glow */
+    animation: pulse 0.5s infinite;
 }
 
-/* Pulse Animation: Makes the thumb feel alive when dragged */
+/* Pulse Animation: Subtle throbbing effect */
 @keyframes pulse {
     0% { transform: scale(1.1); }
     50% { transform: scale(1.15); }
     100% { transform: scale(1.1); }
 }
 
-/* Slider Text: Centered with a shadow for depth */
+/* Slider Text: Neon glow with shadow */
 .slider-text {
     position: absolute;
     width: 100%;
     text-align: center;
-    color: rgba(255, 255, 255, 0.8);
+    color: #38efed; /* Neon cyan */
     font-size: 16px;
     line-height: 60px;
     user-select: none;
     pointer-events: none;
     z-index: 0;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Enhances readability */
+    text-shadow: 0 0 5px rgba(56, 239, 237, 0.7), 0 1px 2px rgba(0, 0, 0, 0.5);
 }

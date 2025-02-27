@@ -1,10 +1,11 @@
 .witty-message-container {
     position: relative;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(30, 41, 59, 0.8);
+    border: 1px solid var(--button-border);
     border-radius: 0.5rem;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     overflow: hidden;
-    color: white;
+    color: var(--text);
     
     display: flex;
     align-items: center;
@@ -12,101 +13,156 @@
     
     width: 100%;
     height: 3.5rem;
-    margin: 0.5rem 0;    
+    margin: 0.75rem 0;    
     
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out; 
-    animation: textBounce3 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);    
+    transition: all 0.4s ease-out;
 }
 
-.pulse {
-    animation: neonPulse 3s infinite ease-in-out; 
+/* Cyberpunk accent line */
+.witty-message-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--selected-color);
+    opacity: 0.7;
+}
+
+/* Inactive session state with attention-grabbing effects */
+.witty-message-container.pulse {
+    background-color: rgba(56, 239, 237, 0.1);
+    border-color: var(--selected-color);
+    box-shadow: 0 0 15px rgba(56, 239, 237, 0.3);
+    animation: attentionPulse 3s infinite ease-in-out;
+}
+
+/* More attention-grabbing animation */
+@keyframes attentionPulse {
+    0% {
+        box-shadow: 0 0 10px rgba(56, 239, 237, 0.3);
+        border-color: var(--selected-color);
+    }
+    25% {
+        box-shadow: 0 0 20px rgba(56, 239, 237, 0.5), 0 0 30px rgba(56, 239, 237, 0.3);
+        border-color: rgba(56, 239, 237, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(56, 239, 237, 0.4);
+        border-color: var(--selected-color);
+    }
+    75% {
+        box-shadow: 0 0 25px rgba(56, 239, 237, 0.6), 0 0 35px rgba(56, 239, 237, 0.3);
+        border-color: rgba(56, 239, 237, 0.9);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(56, 239, 237, 0.3);
+        border-color: var(--selected-color);
+    }
+}
+
+/* Additional effect for inactive state to grab attention */
+.witty-message-container.pulse::before {
+    animation: sideGlow 3s infinite ease-in-out;
+    width: 6px;
+}
+
+@keyframes sideGlow {
+    0% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.7;
+    }
 }
 
 .witty-message {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
     text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); 
+    text-shadow: 0 0 8px rgba(56, 239, 237, 0.3);
     width: 100%;
     white-space: normal;
-    line-height: 1.2;
-    padding: 0 1rem;
+    line-height: 1.3;
+    padding: 0 1.5rem;
     display: inline-block;
+    letter-spacing: 0.5px;
 }
 
-/* Rotating thru each animation to get them to rerun */
+/* Inactive state text styling */
+.pulse .witty-message {
+    color: var(--selected-color);
+    text-shadow: 0 0 8px rgba(56, 239, 237, 0.5);
+    animation: textGlow 3s infinite ease-in-out;
+}
+
+@keyframes textGlow {
+    0% {
+        opacity: 0.9;
+    }
+    50% {
+        opacity: 1;
+        text-shadow: 0 0 12px rgba(56, 239, 237, 0.8);
+    }
+    100% {
+        opacity: 0.9;
+    }
+}
+
+/* Rotating through each animation to get them to rerun */
 .witty-message.dynamic-0 {
-    animation: textBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: textAppear 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .witty-message.dynamic-1 {
-    animation: textBounce1 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: textAppear1 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .witty-message.dynamic-2 {
-    animation: textBounce2 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: textAppear2 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-@keyframes textBounce {
+@keyframes textAppear {
     0% {
-        transform: scale(0.8);
+        transform: translateY(10px);
         opacity: 0;
-    }
-    50% {
-        transform: scale(1.05);
-        opacity: 1;
+        filter: blur(4px);
     }
     100% {
-        transform: scale(1);
+        transform: translateY(0);
+        opacity: 1;
+        filter: blur(0);
     }
 }
 
-@keyframes textBounce1 {
+@keyframes textAppear1 {
     0% {
-        transform: scale(0.8);
+        transform: translateY(10px);
         opacity: 0;
-    }
-    50% {
-        transform: scale(1.05);
-        opacity: 1;
+        filter: blur(4px);
     }
     100% {
-        transform: scale(1);
+        transform: translateY(0);
+        opacity: 1;
+        filter: blur(0);
     }
 }
 
-@keyframes textBounce2 {
+@keyframes textAppear2 {
     0% {
-        transform: scale(0.8);
+        transform: translateY(10px);
         opacity: 0;
+        filter: blur(4px);
     }
-    50% {
-        transform: scale(1.05);
+    100% {
+        transform: translateY(0);
         opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-
-@keyframes textBounce3 {
-    0% { transform: scale(0); filter: blur(4px); }
-    60% { transform: scale(1.1); filter: blur(0); }
-    80% { transform: scale(0.95); }
-    100% { transform: scale(1); }
-}
-
-@keyframes neonPulse {
-    0% {
-        box-shadow: 0 0 10px currentColor;
-    }
-    50% {
-        box-shadow: 0 0 15px currentColor, 0 0 25px rgba(255, 255, 255, 0.5);
-    }
-    100% {
-        box-shadow: 0 0 10px currentColor;
+        filter: blur(0);
     }
 }
