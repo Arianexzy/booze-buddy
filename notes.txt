@@ -1,24 +1,11 @@
-- Achievements:
-    - in the Achievement view, keep track of what achievements have been made and how many times
-    - Put in a peak BAC
-    
-- Put in a peak BAC with the History stats 
-
-- Convert ounces to liters and pounds to kilograms for the BAC calc or give the option in settings
-
-- Need to add some information about how the BAC is used and calculated so the User is aware of how that works. 
-
-- Definitely need to rework the BAC calc. The hour since last drink thing seems to be draining the BAC way too fast. And calc prob shouldn't go over 1.0
-
-- Fix the gray bar at the top that other apps dont havev
-
-- Need to fix the components loading before the CSS does. 
-
 - Get rid of hard coded JSON file path
 
-- Fix bug where Break the Seal achievement keeps reappearing
-
 - Review and remove any dead CSS
+
+- Fix the gray bar at the top that other apps don't have
+- Need to fix the components loading before the CSS does. --> Mostly fixed except for the main screen
+- Fix scroll issue where being partially scrolled on one view makes another view partially scrolled
+
 
 COMMANDS:
 adb install /home/kss/coding/booze-buddy/target/dx/booze-buddy/debug/android/app/app/build/outputs/apk/debug/app-debug.apk

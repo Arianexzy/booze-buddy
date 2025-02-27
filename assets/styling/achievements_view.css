@@ -129,16 +129,6 @@ div:has(> h2:contains("Platinum Tier")) .achievement::before {
   background: #e5e4e2;
 }
 
-/* Optional animation for a more futuristic feel */
-@keyframes scanline {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100%);
-  }
-}
-
 .achievement::after {
   content: "";
   position: absolute;
@@ -148,6 +138,34 @@ div:has(> h2:contains("Platinum Tier")) .achievement::before {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--selected-color), transparent);
   opacity: 0.3;
-  animation: scanline 2s linear infinite;
   pointer-events: none;
 }
+
+.count {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: linear-gradient(135deg, rgba(56, 239, 237, 0.8), rgba(236, 72, 153, 0.8)); /* Neon cyan to pink */
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(56, 239, 237, 0.7); /* Neon glow */
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Enhanced readability */
+  letter-spacing: 0.5px;
+  animation: pulseGlow 2s infinite ease-in-out; /* Subtle pulsing effect */
+}
+
+/* Pulse Glow Animation for the Count */
+/* @keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(56, 239, 237, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(56, 239, 237, 1), 0 0 20px rgba(236, 72, 153, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(56, 239, 237, 0.7);
+  }
+} */
