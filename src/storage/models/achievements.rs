@@ -176,13 +176,6 @@ impl AchievementRegistry {
 
         // Silver
         self.achievements.push(Achievement {
-            id: 12,
-            title: "Two Pump Chump".to_string(),
-            description: "Down two shots".to_string(),
-            tier: AchievementTier::Silver,
-            conditions: vec![AchievementCondition::DrinkTypeCount(DrinkType::Shot, 2)],
-        });
-        self.achievements.push(Achievement {
             id: 13,
             title: "Breaking Bad".to_string(),
             description: "Crush four drinks in a night".to_string(),
@@ -450,14 +443,14 @@ impl AchievementRegistry {
         self.achievements.push(Achievement {
             id: 37,
             title: "Not Your First Rodeo".to_string(),
-            description: "Start strong with 3 drinks in the first 20 minutes".to_string(),
+            description: "Start strong with 3 drinks in the first 25 minutes".to_string(),
             tier: AchievementTier::Gold,
             conditions: vec![AchievementCondition::Custom(|session, _user| {
                 if let Some(start_time) = session.start_time {
                     let early_drinks = session
                         .events
                         .iter()
-                        .filter(|e| e.timestamp - start_time <= Duration::minutes(20))
+                        .filter(|e| e.timestamp - start_time <= Duration::minutes(25))
                         .count();
                     return early_drinks >= 3;
                 }
