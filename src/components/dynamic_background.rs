@@ -24,9 +24,6 @@ pub fn DynamicBackground(props: DynamicBackgroundProps) -> Element {
             }
             div { class: "grid-layer" }
             div { class: "glow-layer" }
-            div { class: "noise-layer" }
-            div { class: "scanline" }
-            div { class: "vignette" }
         }
     }
 }
