@@ -41,9 +41,9 @@ pub fn TonightView() -> Element {
 
     rsx! {
         div { class: "tonight-view-container",
-            if has_active_session {
-                DynamicBackground { total_drinks: total_drinks_resource().unwrap_or(0) }
-            }
+            // if has_active_session {
+            //     DynamicBackground { total_drinks: total_drinks_resource().unwrap_or(0) }
+            // }
             Stats { total_drinks_resource, bac_resource }
             WittyMessage {
                 message: witty_message(),

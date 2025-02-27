@@ -8,7 +8,6 @@ use crate::storage::{
 };
 use dioxus::prelude::*;
 
-const HISTORY_VIEW_CSS: Asset = asset!("/assets/styling/history_view.css");
 
 #[component]
 pub fn DrinkingHistoryView() -> Element {
@@ -16,7 +15,6 @@ pub fn DrinkingHistoryView() -> Element {
     sessions.sort_by(|a, b| b.start_time.cmp(&a.start_time));
 
     rsx! {
-        document::Link { rel: "stylesheet", href: HISTORY_VIEW_CSS }
         h1 { class: "view-header", "Past Rockin Nights" }
         div { class: "sessions-container",
             {

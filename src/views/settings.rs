@@ -4,8 +4,6 @@ use crate::storage::{
 };
 use dioxus::prelude::*;
 
-const SETTINGS_CSS: Asset = asset!("/assets/styling/settings.css");
-
 #[component]
 pub fn SettingsView() -> Element {
     let mut weight = use_signal(|| String::new());
@@ -25,8 +23,6 @@ pub fn SettingsView() -> Element {
     };
 
     rsx! {
-        document::Link { rel: "stylesheet", href: SETTINGS_CSS }
-
         h1 { class: "view-header", "Settings" }
 
         p { class: "info", "Questions below are to estimate blood alcohol content (BAC). It's just a rough estimate for entertainment purposes."}

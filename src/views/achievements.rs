@@ -1,12 +1,9 @@
-use dioxus::prelude::*;
-
 use crate::storage::models::{AchievementRegistry, AchievementTier};
-
-const ACHIEVEMENTS_VIEW_CSS: Asset = asset!("assets/styling/achievements_view.css");
+use dioxus::prelude::*;
 
 #[component]
 pub fn AchievementsView() -> Element {
-    let registry = AchievementRegistry::global();
+    let registry = AchievementRegistry::default();
 
     let tiers = [
         ("Bronze Tier", AchievementTier::Bronze),
@@ -16,7 +13,6 @@ pub fn AchievementsView() -> Element {
     ];
 
     rsx! {
-        document::Link { rel: "stylesheet", href: ACHIEVEMENTS_VIEW_CSS }
         h1 { class: "view-header", "Achievements" }
         div {
             {
