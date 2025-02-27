@@ -41,9 +41,7 @@ pub fn TonightView() -> Element {
 
     rsx! {
         div { class: "tonight-view-container",
-            // if has_active_session {
-            //     DynamicBackground { total_drinks: total_drinks_resource().unwrap_or(0) }
-            // }
+            DynamicBackground { total_drinks: total_drinks_resource().unwrap_or(0) }
             Stats { total_drinks_resource, bac_resource }
             WittyMessage {
                 message: witty_message(),
@@ -54,9 +52,6 @@ pub fn TonightView() -> Element {
             if has_active_session {
                 TonightAchievements { newly_unlocked_achievements }
                 EndNightSlider { on_end_night: reset_view }
-            }
-            if has_active_session {
-
             }
         }
     }
