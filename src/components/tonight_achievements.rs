@@ -33,24 +33,27 @@ pub fn TonightAchievements(props: TonightAchievementsProps) -> Element {
                     unlocked_achievement_ids
                         .iter()
                         .map(|id| {
-                            let achievement = registry.get_achievement_from(*id).unwrap();
-                            let achievement_display = Achievement::display(achievement.tier);
-                            let (tier_class, icon) = (
-                                achievement_display.tier_label,
-                                achievement_display.tier_icon,
-                            );
-                            let tier_class = match newly_unlocked_achievements_ids.contains(id) {
-                                true => format!("{tier_class} new"),
-                                false => format!("{tier_class}"),
-                            };
-                            rsx! {
-                                div { class: "tonight-achievement-item achievement-{tier_class}",
-                                    h3 { class: "tonight-achievement-title",
-                                        "{achievement.title}"
-                                        span { "{icon}" }
+                            if let Some(achievement) = registry.get_achievement_from(*id) {
+                                let achievement_display = Achievement::display(achievement.tier);
+                                let (tier_class, icon) = (
+                                    achievement_display.tier_label,
+                                    achievement_display.tier_icon,
+                                );
+                                let tier_class = match newly_unlocked_achievements_ids.contains(id) {
+                                    true => format!("{tier_class} new"),
+                                    false => format!("{tier_class}"),
+                                };
+                                rsx! {
+                                    div { class: "tonight-achievement-item achievement-{tier_class}",
+                                        h3 { class: "tonight-achievement-title",
+                                            "{achievement.title}"
+                                            span { "{icon}" }
+                                        }
+                                        p { class: "tonight-achievement-description", "{achievement.description}" }
                                     }
-                                    p { class: "tonight-achievement-description", "{achievement.description}" }
                                 }
+                            } else {
+                                rsx! {}
                             }
                         })
                 }
