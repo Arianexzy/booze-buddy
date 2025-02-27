@@ -1,8 +1,6 @@
 use crate::storage::{
     models::{
-        Achievement,
-        AchievementTier::{Bronze, Gold, Platinum, Silver},
-        DrinkType::{Beer, MixedDrink, Shot, Wine},
+        Achievement, AchievementRegistry, AchievementTier::{Bronze, Gold, Platinum, Silver}, DrinkType::{Beer, MixedDrink, Shot, Wine}
     },
     storage::drink_history::get_past_sessions,
 };
@@ -11,6 +9,7 @@ use dioxus::prelude::*;
 
 #[component]
 pub fn DrinkingHistoryView() -> Element {
+    let registry = AchievementRegistry::global();
     let mut sessions = get_past_sessions().unwrap_or(vec![]);
     sessions.sort_by(|a, b| b.start_time.cmp(&a.start_time));
 
@@ -37,7 +36,13 @@ pub fn DrinkingHistoryView() -> Element {
                         let shot_icon = Shot.display().icon;
 
                         // Achievement counts
-                        let achievements = &session.achievements;
+                        let achievement_ids = session.get_unlocked_achievement_ids();
+                            
+                        let achievements: Vec<&Achievement> = achievement_ids
+                            .iter()
+                            .filter_map(|id| registry.get_achievement_from(*id))
+                            .collect();
+
                         let bronze_count = achievements.iter().filter(|a| a.tier == Bronze).count();
                         let silver_count = achievements.iter().filter(|a| a.tier == Silver).count();
                         let gold_count = achievements.iter().filter(|a| a.tier == Gold).count();

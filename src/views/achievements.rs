@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 
 #[component]
 pub fn AchievementsView() -> Element {
-    let registry = AchievementRegistry::default();
+    let registry = AchievementRegistry::global();
 
     let tiers = [
         ("Bronze Tier", AchievementTier::Bronze),

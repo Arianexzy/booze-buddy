@@ -7,6 +7,7 @@ use crate::storage::{
     },
 };
 use parking_lot::Mutex;
+use uuid::Uuid;
 use std::path::PathBuf;
 
 static HISTORY_STORAGE: Mutex<Option<DrinkingHistory>> = Mutex::new(None);
@@ -55,11 +56,11 @@ pub fn get_current_bac() -> StorageResult<f32> {
     with_current_session(|session| session.calculate_bac(&user))
 }
 
-pub fn get_achievements() -> StorageResult<Vec<Achievement>> {
-    with_current_session(|session| session.achievements.clone())
+pub fn get_unlocked_achievements() -> StorageResult<Vec<u32>> {
+    with_current_session(|session| session.unlocked_achievement_ids.clone())
 }
 
-pub fn get_newly_unlocked_achievements() -> StorageResult<Vec<Achievement>> {
+pub fn get_newly_unlocked_achievements() -> StorageResult<Vec<u32>> {
     let user = get_user();
     with_current_session(|session| {
         let newly_unlocked = session.check_achievements(&user);

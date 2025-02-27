@@ -1,14 +1,13 @@
 use super::{
-    ALCOHOL_CONVERSION_FACTOR, Achievement, AchievementRegistry, DRINK_ALCOHOL_CONTENT, DrinkEvent,
-    DrinkType, Gender, METABOLISM_RATE, User,
+    AchievementRegistry, DrinkEvent, DrinkType, Gender, User, ALCOHOL_CONVERSION_FACTOR, DRINK_ALCOHOL_CONTENT, METABOLISM_RATE
 };
 use chrono::{DateTime, Local};
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize, Default, Clone)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, PartialEq)]
 pub struct DrinkingSession {
     pub events: Vec<DrinkEvent>,
-    pub achievements: Vec<Achievement>,
+    pub unlocked_achievement_ids: Vec<u32>,
     pub is_active: bool,
     pub current_bac: f32,
     pub max_bac: f32,
@@ -16,7 +15,7 @@ pub struct DrinkingSession {
     pub end_time: Option<DateTime<Local>>,
 }
 
-impl DrinkingSession {
+impl DrinkingSession {    
     pub fn start(&mut self) {
         self.is_active = true;
         self.start_time = Some(Local::now());
@@ -71,15 +70,19 @@ impl DrinkingSession {
         calculated_bac
     }
 
-    pub fn check_achievements(&mut self, user: &User) -> Vec<Achievement> {
+    pub fn check_achievements(&mut self, user: &User) -> Vec<u32> {
         let mut newly_unlocked = Vec::new();
         let registry = AchievementRegistry::global();
         for achievement in &registry.achievements {
-            if !self.achievements.contains(&achievement) && achievement.is_achieved(self, user) {
-                self.achievements.push(achievement.clone());
-                newly_unlocked.push(achievement.clone());
+            if !self.unlocked_achievement_ids.contains(&achievement.id) && achievement.is_achieved(self, user) {
+                self.unlocked_achievement_ids.push(achievement.id);
+                newly_unlocked.push(achievement.id);
             }
         }
         newly_unlocked
+    }
+    
+    pub fn get_unlocked_achievement_ids(&self) -> Vec<u32> {
+        self.unlocked_achievement_ids.clone()
     }
 }
