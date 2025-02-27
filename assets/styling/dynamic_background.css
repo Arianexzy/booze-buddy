@@ -1,13 +1,13 @@
 @property --base-hue { 
     syntax: "<number>"; 
     inherits: false; 
-    initial-value: 270; 
+    initial-value: 180; /* Cyberpunk cyan/teal as base */
 }
 
-@property --hue-range {
+@property --glow-intensity {
     syntax: "<number>";
     inherits: false;
-    initial-value: 30;
+    initial-value: 0;
 }
 
 .dynamic-background-container {
@@ -17,54 +17,103 @@
     width: 100%;
     height: 100%;
     z-index: -1;
+    overflow: hidden;
 }
 
 .gradient-layer {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        to bottom,
-        hsl(calc(var(--base-hue) + var(--hue-range)), 75%, 35%),
-        hsl(var(--base-hue), 80%, 45%),
-        hsl(calc(var(--base-hue) - var(--hue-range)), 75%, 35%)
+    /* Dark background with very subtle gradient */
+    background: radial-gradient(
+        ellipse at bottom,
+        hsl(var(--base-hue), 35%, 15%) 0%,
+        hsl(var(--base-hue), 25%, 10%) 40%,
+        hsl(var(--base-hue), 20%, 5%) 80%
     );
-    opacity: 0.9;
-    transition: 
-        --base-hue 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
-        --hue-range 1.2s ease-out,
-        filter 1.2s ease-in-out; 
-    animation: 
-        flowing-river 15s linear infinite,
-        subtle-zoom 3s ease-in-out infinite;
-    transform: scale(1);
+    opacity: 0.95;
+    transition: --base-hue 1.5s ease, --glow-intensity 1.5s ease;
 }
 
-.gradient-layer.dark-tint { filter: brightness(0.8) saturate(0.85); }
-.gradient-layer.darker-tint { filter: brightness(0.65) saturate(0.8); }
-.gradient-layer.darkest-tint { filter: brightness(0.5) saturate(0.75); }
-
-@keyframes flowing-river {
-    0% { background-position: 0% 0% }
-    100% { background-position: 0% 150% }
+/* Grid lines overlay */
+.grid-layer {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background-image: 
+        linear-gradient(
+            rgba(56, 239, 237, 0.03) 1px, 
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg, 
+            rgba(56, 239, 237, 0.03) 1px, 
+            transparent 1px
+        );
+    background-size: 20px 20px;
+    transform: perspective(500px) rotateX(60deg);
+    transform-origin: center;
+    opacity: calc(0.2 + (var(--glow-intensity) * 0.1));
+    transition: opacity 1.5s ease;
 }
 
+/* Subtle glow spots */
+.glow-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at 30% 70%,
+        hsla(var(--base-hue), 100%, 50%, calc(0.05 + (var(--glow-intensity) * 0.05))),
+        transparent 25%
+    ),
+    radial-gradient(
+        circle at 70% 30%,
+        hsla(calc(var(--base-hue) + 30), 100%, 50%, calc(0.03 + (var(--glow-intensity) * 0.04))),
+        transparent 20%
+    );
+    mix-blend-mode: screen;
+    transition: background 1.5s ease;
+}
+
+/* Subtle noise texture */
 .noise-layer {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: 
-        radial-gradient(circle at 50% 50%, 
-            rgba(255,255,255,0.1) 0%, 
-            rgba(0,0,0,0.15) 100%),
-        repeating-linear-gradient(
-            45deg,
-            rgba(0,0,0,0.03) 0px,
-            rgba(0,0,0,0.03) 2px,
-            transparent 2px,
-            transparent 4px
-        );
-    mix-blend-mode: soft-light;
-    opacity: 0.15;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.015;
+    mix-blend-mode: overlay;
+}
+
+/* Horizontal scan line */
+.scanline {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        hsla(var(--base-hue), 100%, 70%, calc(0.1 + (var(--glow-intensity) * 0.1))) 50%,
+        transparent 100%
+    );
+    opacity: calc(0.3 + (var(--glow-intensity) * 0.1));
+    top: 50%;
+    animation: scanline-move 8s linear infinite;
+    transition: background 1.5s ease;
+}
+
+@keyframes scanline-move {
+    0% { top: 0%; }
+    100% { top: 100%; }
+}
+
+/* Vignette effect */
+.vignette {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
     pointer-events: none;
 }

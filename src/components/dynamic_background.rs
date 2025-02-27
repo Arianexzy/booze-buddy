@@ -9,51 +9,40 @@ pub struct DynamicBackgroundProps {
 
 #[component]
 pub fn DynamicBackground(props: DynamicBackgroundProps) -> Element {
-    let (base_hue, gradient_range, l1, l2) = calculate_hue_progression(props.total_drinks);
+    let (base_hue, glow_intensity) = calculate_cyberpunk_mood(props.total_drinks);
 
-    let gradient_style = format!(
-        "--base-hue: {base_hue:.1};
-            --hue-range: {gradient_range:.1};
-            --lightness1: {l1}%;
-            --lightness2: {l2}%;"
+    let style = format!(
+        "--base-hue: {base_hue:.1}; --glow-intensity: {glow_intensity:.3};"
     );
-
-    let tint_class = match props.total_drinks {
-        9 => " dark-tint",
-        10 => " darker-tint",
-        n if n > 10 => " darkest-tint",
-        _ => "",
-    };
 
     rsx! {
         document::Link { rel: "stylesheet", href: DYNAMIC_BACKGROUND_CSS }
         div { class: "dynamic-background-container",
             div {
-                class: "gradient-layer{tint_class}",
-                style: "{gradient_style}",
+                class: "gradient-layer",
+                style: "{style}",
             }
+            div { class: "grid-layer" }
+            div { class: "glow-layer" }
             div { class: "noise-layer" }
+            div { class: "scanline" }
+            div { class: "vignette" }
         }
     }
 }
 
-fn calculate_hue_progression(drinks: i32) -> (f32, f32, f32, f32) {
-    let drinks = drinks.clamp(0, 8);
-    let progression = (drinks as f32 / 8.0).clamp(0.0, 1.0);
-
-    // Base color progression
-    let base_hue = 270.0 * (1.0 - progression);
-    let gradient_range = 55.0 * (1.0 - progression).powf(0.5);
-
-    // Gentle darkening curve for final stage
-    let lightness_factor = if drinks >= 8 {
-        0.7 // Extra darkening for final stage
-    } else {
-        progression.powf(2.0).min(0.9)
-    };
-
-    let lightness1 = 35.0 - (15.0 * lightness_factor);
-    let lightness2 = 45.0 - (10.0 * lightness_factor);
-
-    (base_hue, gradient_range, lightness1, lightness2)
+fn calculate_cyberpunk_mood(drinks: i32) -> (f32, f32) {
+    // Cap at 10 drinks for full effect
+    let drinks = drinks.clamp(0, 10);
+    let progression = (drinks as f32 / 10.0).clamp(0.0, 1.0);
+    
+    // Start with cyan/teal (180) and shift gradually toward red (0) with more drinks
+    // But keep the shift VERY subtle - only 40 degrees in hue
+    let base_hue = 180.0 - (40.0 * progression);
+    
+    // Glow intensity increases very subtly with drink count
+    // Starts at 0 and maxes at 1.0 for full effect
+    let glow_intensity = progression.powf(1.5);
+    
+    (base_hue, glow_intensity)
 }
