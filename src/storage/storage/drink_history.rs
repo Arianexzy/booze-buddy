@@ -1,13 +1,12 @@
 use super::utils::*;
 use crate::storage::{
-    models::{Achievement, DrinkType, DrinkingHistory, DrinkingSession},
+    models::{DrinkType, DrinkingHistory, DrinkingSession},
     storage::{
         error::{StorageError, StorageResult},
         settings::get_user,
     },
 };
 use parking_lot::Mutex;
-use uuid::Uuid;
 use std::path::PathBuf;
 
 static HISTORY_STORAGE: Mutex<Option<DrinkingHistory>> = Mutex::new(None);
